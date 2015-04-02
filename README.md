@@ -3,3 +3,7 @@
 
 1、扩展支持GemFire XD，待测试。
 2、整合bootstrap作为UI。
+3、整合Redis 3.x作为Session存储。
+4、整合Solr 5.x作为站内搜索。
+5、手机客户端开发(Cordova或其他)。
+6、推荐引挚整合及扩展(Mahout或其他)。
