@@ -31,10 +31,16 @@
     <test-suite loader="main" location="testdef/EbizTests.xml"/>
 
     <!-- web applications; will be mounted when using the embedded container -->
-    <webapp name="ebiz"
+    <!-- <webapp name="ebiz"
         title="Ebiz"
         server="default-server"
         location="webapp/ebiz"
         base-permission="OFBTOOLS,EBIZMGR"
-        mount-point="/ebiz"/>
+        mount-point="/ebiz"/> -->
+    <webapp name="ebizmgr"
+        title="Ebiz"
+        server="default-server"
+        location="webapp/ebizmgr"
+        base-permission="OFBTOOLS"
+        mount-point="/ebizmgr"/>
 </ofbiz-component>
