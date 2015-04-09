@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bootstrap + jqGrid</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        
+        <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../css/custom-theme/jquery-ui-1.10.1.custom.css">
+        
+        <link rel="stylesheet" href="jqGrid/css/ui.jqgrid.css" /> 
+        <link rel="stylesheet" href="jqGrid.overrides.css">
+
+  
+
+        <!-- jQuery + jqGrid -->
+        <script src="../../assets/js/jquery-1.9.0.min.js"></script> 
+        <script src="../../assets/js/bootstrap.min.js"></script>
+        <script src="../../assets/js/jquery-ui-1.10.0.custom.min.js"></script>       
+        <script src="jqGrid/js/i18n/grid.locale-en.js"></script>
+        <script src="jqGrid/js/jquery.jqGrid.min.js"></script> 
+
+
+                  
+
+        <!-- jqGrid setup -->
+        <script>
+            
+            $(document).ready(function() {
+            
+                var mydata = [
+                    {id:"1",invdate:"2010-05-24",name:"test",note:"note",tax:"10.00",total:"2111.00"} ,
+                    {id:"2",invdate:"2010-05-25",name:"test2",note:"note2",tax:"20.00",total:"320.00"},
+                    {id:"3",invdate:"2007-09-01",name:"test3",note:"note3",tax:"30.00",total:"430.00"},
+                    {id:"4",invdate:"2007-10-04",name:"test",note:"note",tax:"10.00",total:"210.00"},
+                    {id:"5",invdate:"2007-10-05",name:"test2",note:"note2",tax:"20.00",total:"320.00"},
+                    {id:"6",invdate:"2007-09-06",name:"test3",note:"note3",tax:"30.00",total:"430.00"},
+                    {id:"7",invdate:"2007-10-04",name:"test",note:"note",tax:"10.00",total:"210.00"},
+                    {id:"8",invdate:"2007-10-03",name:"test2",note:"note2",amount:"300.00",tax:"21.00",total:"320.00"},
+                    {id:"9",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+                    {id:"11",invdate:"2007-10-01",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+                    {id:"12",invdate:"2007-10-02",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+                    {id:"13",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+                    {id:"14",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+                    {id:"15",invdate:"2007-10-05",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+                    {id:"16",invdate:"2007-09-06",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+                    {id:"17",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+                    {id:"18",invdate:"2007-10-03",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+                    {id:"19",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+                    {id:"21",invdate:"2007-10-01",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+                    {id:"22",invdate:"2007-10-02",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+                    {id:"23",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+                    {id:"24",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+                    {id:"25",invdate:"2007-10-05",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+                    {id:"26",invdate:"2007-09-06",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+                    {id:"27",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+                    {id:"28",invdate:"2007-10-03",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+                    {id:"29",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"}
+                ];
+    
+                $("#demoGrid").jqGrid({
+                    data: mydata,
+                    datatype: "local",
+                    height: 250,
+                    rowNum: 10,
+                    rowList: [10,20,30],
+                    colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
+                    colModel:[
+                        {name:'id',index:'id', width:60, sorttype:"int",search:true},
+                        {name:'invdate',index:'invdate', width:90, sorttype:"date", formatter:"date"},
+                        {name:'name',index:'name', width:200},
+                        {name:'amount',index:'amount', width:80, align:"right",sorttype:"float", formatter:"number"},
+                        {name:'tax',index:'tax', width:80, align:"right",sorttype:"float"},        
+                        {name:'total',index:'total', width:80,align:"right",sorttype:"float"},        
+                        {name:'note',index:'note', width:250, sortable:false}        
+                    ],
+                    pager: "#gridPager",
+                    viewrecords: true,
+                    caption: "Sample jqGrid Table",
+                    hidegrid:true,
+                    altRows: true,
+                    shrinkToFit:false,
+                    autowidth: true,
+                    height: '100%',
+                    multiselect: true,
+                    beforeSelectRow: function(rowid, e) {
+                        var $this = $(this), rows = this.rows,
+                            // get id of the previous selected row
+                            startId = $this.jqGrid('getGridParam', 'selrow'),
+                            startRow, endRow, iStart, iEnd, i, rowidIndex;
+
+                        if (!e.ctrlKey && !e.shiftKey && !e.metaKey) {
+                            $this.jqGrid('resetSelection');
+                        } else if (startId && e.shiftKey) {
+                            $this.jqGrid('resetSelection');
+
+                            // get DOM elements of the previous selected and
+                            // the currect selected rows
+                            startRow = rows.namedItem(startId);
+                            endRow = rows.namedItem(rowid);
+                            if (startRow && endRow) {
+                                // get min and max from the indexes of the previous selected
+                                // and the currect selected rows 
+                                iStart = Math.min(startRow.rowIndex, endRow.rowIndex);
+                                rowidIndex = endRow.rowIndex;
+                                iEnd = Math.max(startRow.rowIndex, rowidIndex);
+                                for (i = iStart; i <= iEnd; i++) {
+                                    // the row with rowid will be selected by
+                                    // jqGrid. So we don't need select it
+                                    if (i != rowidIndex) {
+                                        $this.jqGrid('setSelection', rows[i].id, false);
+                                    }
+                                }
+                            }
+
+                            // clear text selection (needed in IE)
+                            if(document.selection && document.selection.empty) {
+                                document.selection.empty();
+                            } else if(window.getSelection) {
+                                window.getSelection().removeAllRanges();
+                            }
+                        }
+                        return true;
+                    }                
+                });
+                jQuery("#demoGrid").jqGrid('navGrid','#gridPager',{add:false,del:false});
+                //jQuery("#demoGrid").jqGrid('filterToolbar',{defaultSearch:true,stringResult:true});
+            
+                //test responsiveness
+                $(window).on('resize', function(event, ui) {
+                    // Get width of parent container
+                    var parWidth = $("#gbox_demoGrid").parent().width();
+                    var curWidth = $("#gbox_demoGrid").width();
+                    //console.log("span width " + parWidth + " gridWidth " + gWidth);
+                    var w = parWidth - 1; // Fudge factor to prevent horizontal scrollbars
+                    if (Math.abs(w - curWidth) > 2)
+                    {
+                        //alert("resize to " + width);
+                        console.log("span width " + parWidth + " gridWidth " + curWidth);    
+                        $("#demoGrid").setGridWidth(w);
+                        console.log("new width " + w);
+                    }
+
+                }).trigger('resize');
+            });
+        </script>
+
+        <style>
+          body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+          }
+        </style>
+        
+
+
+        
+        
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+
+    </head>
+
+    <body>
+
+     
+
+        <div class="container">
+            <div class="row-fluid">
+                
+                <div class="span9" id='gridSpan'>
+                  <table id="demoGrid"></table>
+                  <div id="gridPager"></div>
+                </div><!--/span-->
+            </div><!--/row-->
+
+            <hr>
+
+            <footer>
+                <p>&copy; Company 2012</p>
+            </footer>
+
+        </div><!--/.fluid-container-->
+
+
+
+    </body>
+</html>
