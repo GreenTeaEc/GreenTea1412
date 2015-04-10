@@ -81,50 +81,23 @@
         
 		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuOrder">
 		  	<li class="nav-header">订单管理</li>
-		  	<li><a href="javascript:addGreenteaTab('订单查询','login','订单查询',true);">订单查询</a></li>
+		  	<li><a href="javascript:addGreenteaTab('订单查询','login',true);">订单查询</a></li>
 		  </ul>
 		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuProduct">
 		  	<li class="nav-header">产品管理</li>
 		  	<li><a href="">产品查询</a></li>
 		  </ul>
 		  
-		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuOrder">
-		  	<li class="nav-header">订单管理</li>
-		  	<li><a href="javascript:addGreenteaTab('订单查询','login','订单查询',true);">订单查询</a></li>
-		  </ul>
-		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuProduct">
-		  	<li class="nav-header">产品管理</li>
-		  	<li><a href="">产品查询</a></li>
-		  </ul>
-		  
-		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuOrder">
-		  	<li class="nav-header">订单管理</li>
-		  	<li><a href="javascript:addGreenteaTab('订单查询','login','订单查询',true);">订单查询</a></li>
-		  </ul>
-		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuProduct">
-		  	<li class="nav-header">产品管理</li>
-		  	<li><a href="">产品查询</a></li>
-		  </ul>
-		  
-		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuOrder">
-		  	<li class="nav-header">订单管理</li>
-		  	<li><a href="javascript:addGreenteaTab('订单查询','login','订单查询',true);">订单查询</a></li>
-		  </ul>
-		  <ul class="nav nav-list ebiz-left-nav" id="ebizMenuProduct">
-		  	<li class="nav-header">产品管理</li>
-		  	<li><a href="">产品查询</a></li>
-		  </ul>
+
         </div>
         
           <div class="col-sm-10 col-sm-offset-3 col-md-10 col-md-offset-2 row" id="greenteaTabs">
 	        <ul>
-	            <li><a href="#tabs-1">First</a></li>
+	            <li><a href="#tabs-1">电商后台</a></li>
 	        </ul>
 	        <div id="tabs-1">
 	            <p>
-	            
-	            
-	            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+	            欢迎使用电商平台
 
 	            
 	            </p>
@@ -146,18 +119,23 @@
     var tabCounter = 2;
         
 	// actual addTab function: adds new tab using the input from the form above
-	function addGreenteaTab(tabName,targetUrl, tabDesc, refreshIfExists) {
-	    var label = tabDesc,
-	        id = "tabs-" + tabCounter,
-	        li = "<li><a href='#"+id+"'>"+label+"</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>"; 
-	        tabContentHtml = "<div id='"+id+"' class='container-fluid'><p><iframe src='"+targetUrl+"'  style='height:100%; width:100%; marginwidth:0; marginheight:0; scrolling:no'></iframe></p></div>";
-	
+	function addGreenteaTab(tabTitle,targetUrl,refreshIfExists) {
+	    var label = tabTitle,
+	    	id = "tabs-" + tabCounter,
+	        li = "<li><a href='#"+id+"'>"+label+"</a><span class='ui-icon ui-icon-close'>X</span></li>"; 
+	        tabContentHtml = "<div id='"+id+"' class='container-fluid'><p><iframe src='"+targetUrl+"'  style='height:1000px; width:100%; marginwidth:0; marginheight:0; scrolling:no'></iframe></p></div>";
+
+	    var tabIndex = getTabIndex( tabTitle );   
+		if(tabIndex > -1){
+			gtTabs.tabs("option", "active", tabIndex);  
+			return;
+		}
 	    gtTabs.find( ".ui-tabs-nav" ).append( li );
-	    //gtTabs.append( "&lt;div id='" + id + "&gt;&lt;/div&gt;&lt;p&gt;" + tabContentHtml + "&lt;/p&gt;&lt;/div&gt;" );
 	    gtTabs.append(tabContentHtml);
 	    gtTabs.tabs( "refresh" );
-	    var selecting = gtTabs.tabs( "length" ) - 1;  
-        gtTabs.tabs( "option", "selected", index);  
+	    var selecting = gtTabs.children("div").length-1;  
+
+        gtTabs.tabs("option", "active", selecting);  
 	    tabCounter++;
 	}
 
@@ -169,6 +147,18 @@
         gtTabs.tabs( "refresh" );
     });
 
+	function getTabIndex(tabTitle){
+		var tabIndex = -1;
+		var liList = $("#greenteaTabs ul li");
+
+		for(var i=0;i<liList.length;i++)
+		{
+			var aText = $(liList[i]).find("a").text();
+			if(tabTitle==aText) return i;
+		}
+		return -1;
+	} 
+	
 //});  
 </script>
     
