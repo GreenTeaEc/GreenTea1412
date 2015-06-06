@@ -12,4 +12,6 @@ QQ群：212741394
 8、整合jpbm6工作流 。<br/>
 9、集成kafka消息队列 。<br/>
 10、支持微服务架构设计。<br/>
-11、整合Ignite.<br/>
+11、整合Apache Ignite。<br/>
+12、引进Lambda Architecture。<br/>
+13、扩展支持CockroachDB。<br/>
