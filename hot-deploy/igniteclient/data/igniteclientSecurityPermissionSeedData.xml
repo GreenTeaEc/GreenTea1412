@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityPermission description="View operations in the igniteclient Component." permissionId="IGNITECLIENT_VIEW"/>
+    <SecurityPermission description="Create operations in the igniteclient Component." permissionId="IGNITECLIENT_CREATE"/>
+    <SecurityPermission description="Update operations in the igniteclient Component." permissionId="IGNITECLIENT_UPDATE"/>
+    <SecurityPermission description="Delete operations in the igniteclient Component." permissionId="IGNITECLIENT_DELETE"/>
+    <SecurityPermission description="ALL operations in the igniteclient Component." permissionId="IGNITECLIENT_ADMIN"/>
+
+    <SecurityGroupPermission groupId="SUPER" permissionId="IGNITECLIENT_ADMIN"/>
+
+</entity-engine-xml>

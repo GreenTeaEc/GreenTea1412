@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+	<description>igniteclient Services</description>
+	<vendor></vendor>
+	<version>1.0</version>
+
+	<service name="noSyntaxError" engine="interface">
+		<description>
+            Dummy service to prevent empty files and syntax error - Remove when the 1st real service will be added here 
+        </description>
+	</service>
+
+	<service name="putCache" engine="java"
+		location="org.ofbiz.ignite.services.CacheService" invoke="put" auth="true">
+		<description>向cache中放数据</description>
+		<!-- cacheName 为空时采用服务类为cache服务名 -->
+		<attribute name="cacheName" type="String" mode="IN"	optional="true" />
+		<attribute name="cacheKey" type="Object" mode="IN" optional="false" />
+		<attribute name="cacheValue" type="Object" mode="IN" optional="true" />
+		<attribute name="result" type="Boolean" mode="OUT" optional="true"/>
+	</service>
+	
+	<service name="getCache" engine="java"
+		location="org.ofbiz.ignite.services.CacheService" invoke="get" auth="true">
+		<description>从cache中取数据</description>
+		<!-- cacheName 为空时采用服务类为cache服务名 -->
+		<attribute name="cacheName" type="String" mode="IN"	optional="true" />
+		<attribute name="cacheKey" type="Object" mode="IN" optional="false" />
+		<attribute name="result" type="Object" mode="OUT" optional="true" />
+	</service>
+	
+	
+	<service name="putAllCache" engine="java"
+		location="org.ofbiz.ignite.services.CacheService" invoke="put" auth="true">
+		<description>向cache中放多个数据</description>
+		<!-- cacheName 为空时采用服务类为cache服务名 -->
+		<attribute name="cacheName" type="String" mode="IN"	optional="true" />
+		<attribute name="batchCache" type="java.util.Map" mode="IN" optional="false" />
+		<attribute name="result" type="Boolean" mode="OUT" optional="true"/>
+	</service>
+	
+	<service name="getAllCache" engine="java"
+		location="org.ofbiz.ignite.services.CacheService" invoke="get" auth="true">
+		<description>从cache中取多个数据</description>
+		<!-- cacheName 为空时采用服务类为cache服务名 -->
+		<attribute name="cacheName" type="String" mode="IN"	optional="true" />
+		<attribute name="batchKey" type="java.util.Set" mode="IN" optional="false" />
+		<attribute name="result" type="java.util.Map" mode="OUT" optional="true" />
+	</service>
+
+</services>

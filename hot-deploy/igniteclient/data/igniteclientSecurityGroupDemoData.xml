@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="IGNITECLIENT_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="IGNITECLIENT_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="IGNITECLIENT_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="IGNITECLIENT_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="IGNITECLIENT_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="IGNITECLIENT_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="IGNITECLIENT_ADMIN"/>
+</entity-engine-xml>

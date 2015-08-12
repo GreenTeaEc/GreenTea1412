@@ -1,0 +1,7 @@
+// ------------------------------------------------------------------
+// List of ignite-spring module's dependencies provided as a part of this distribution
+// which licenses differ from Apache Software License.
+// ------------------------------------------------------------------
+
+
+
