@@ -6,7 +6,7 @@ QQ群：212741394
 1、前端商城采用react和 node.js开发。<br/>
 2、手机客户端开发(react native方案)。<br/>
 3、API Gateway采用kong。<br/>
-4、整合Solr 5.x作为站内搜索。<br/>
+4、整合Elasticsearch 2.x作为站内搜索。<br/>
 5、整合Redis 3.x作为Session存储。<br/>
 6、整合Apache Ignite作为缓存或其它。<br/>
 7、整合bootstrap作为后台管理UI。<br/>
