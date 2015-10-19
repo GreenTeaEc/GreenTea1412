@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityPermission description="View operations in the ebank Component." permissionId="EBANK_VIEW"/>
+    <SecurityPermission description="Create operations in the ebank Component." permissionId="EBANK_CREATE"/>
+    <SecurityPermission description="Update operations in the ebank Component." permissionId="EBANK_UPDATE"/>
+    <SecurityPermission description="Delete operations in the ebank Component." permissionId="EBANK_DELETE"/>
+    <SecurityPermission description="ALL operations in the ebank Component." permissionId="EBANK_ADMIN"/>
+
+    <SecurityGroupPermission groupId="SUPER" permissionId="EBANK_ADMIN"/>
+
+</entity-engine-xml>

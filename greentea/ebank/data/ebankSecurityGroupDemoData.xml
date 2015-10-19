@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="EBANK_ADMIN"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EBANK_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EBANK_DELETE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EBANK_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EBANK_VIEW"/>
+    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="EBANK_VIEW"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="EBANK_ADMIN"/>
+</entity-engine-xml>

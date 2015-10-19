@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+	
+	<!-- 存款单账户 -->
+	<AccountType description="Certificate Of Deposit" accountTypeId="CERT_OF_DEPOSIT"/>
+	<!-- 支票存款账户 -->
+	<AccountType description="Checking Account" accountTypeId="CHECKING"/>
+	<!-- 信用卡账户 -->
+	<AccountType description="Credit Card Account" accountTypeId="CREDIT_CARD"/>
+	<!-- 借记卡账户 -->
+	<AccountType description="Debit Card Account" accountTypeId="DEDIT_CARD"/>
+	<!-- 存款账户 -->
+	<AccountType description="Deposit Account" accountTypeId="DEPOSIT"/>
+	
+	<!-- 存取特征 -->
+	<ProductFeatureType description="Access Feature" hasTable="N" parentTypeId="" productFeatureTypeId="ACCESS"/>
+	<!-- 费用特征 -->
+	<ProductFeatureType description="Fee Feature" hasTable="N" parentTypeId="" productFeatureTypeId="FEE"/>
+	<!-- 利率特征 -->
+	<ProductFeatureType description="Interest Rate Feature" hasTable="N" parentTypeId="" productFeatureTypeId="INTEREST_RATE"/>
+	<!-- 对账单特征 -->
+	<ProductFeatureType description="Statement Feature" hasTable="N" parentTypeId="" productFeatureTypeId="STATEMENT_RATE"/>
+	
+	
+	<!-- 提醒任务 -->
+	<WorkEffortType description="Alert Task" hasTable="N" parentTypeId="" workEffortTypeId="ALERT_TASK"/>
+	<!-- 计费任务 -->
+	<WorkEffortType description="Billing Task" hasTable="N" parentTypeId="" workEffortTypeId="BILLING_TASK"/>
+	<!-- 行销任务 -->
+	<WorkEffortType description="Marketing Task" hasTable="N" parentTypeId="" workEffortTypeId="MARKETING_TASK"/>
+	<!-- 通知任务 -->
+	<WorkEffortType description="Notification Task" hasTable="N" parentTypeId="" workEffortTypeId="NOTIFICATION_TASK"/>
+	<!-- 其他通知任务 -->
+	<WorkEffortType description="Other Notification Task" hasTable="N" parentTypeId="" workEffortTypeId="OTHER_NOTIF_TASK"/>
+	<!-- 对账单任务 -->
+	<WorkEffortType description="Statement Task" hasTable="N" parentTypeId="" workEffortTypeId="STATEMENT_TASK"/>
+	<!-- 风险分析 -->
+	<WorkEffortType description="Risk Analysis" hasTable="N" parentTypeId="" workEffortTypeId="RISk_ANALYSIS"/>
+	
+	<!-- ProductCategory -->
+	<!-- 养老金 -->
+	<ProductCategoryType description="Annuity" hasTable="N" parentTypeId="" productCategoryTypeId="ANNUITY_CATEGORY"/>
+	<!-- 支票存款 -->
+	<ProductCategoryType description="Checking" hasTable="N" parentTypeId="" productCategoryTypeId="CHECKING"/>
+	<!-- 存款产品 -->
+	<ProductCategoryType description="Deposit Product" hasTable="N" parentTypeId="" productCategoryTypeId="DEPOSIT_PRODUCT"/>
+	<!-- 贷款产品 -->
+	<ProductCategoryType description="Loan Product" hasTable="N" parentTypeId="" productCategoryTypeId="LOAN_PRODUCT"/>
+	<!-- 抵押贷款 -->
+	<ProductCategoryType description="Mortgage" hasTable="N" parentTypeId="" productCategoryTypeId="MORTGAGE"/>
+	<!-- 共有基金 -->
+	<ProductCategoryType description="Mutual Fund" hasTable="N" parentTypeId="" productCategoryTypeId="MUTUAL_FUND"/>
+	<!-- 定期存款 -->
+	<ProductCategoryType description="Time Deposit" hasTable="N" parentTypeId="" productCategoryTypeId="TIME_DEPOSIT"/>
+	<!-- 储蓄存款 -->
+	<ProductCategoryType description="Savings" hasTable="N" parentTypeId="" productCategoryTypeId="SAVINGS"/>
+	<!-- 循环贷款 -->
+	<ProductCategoryType description="Revolving Credit" hasTable="N" parentTypeId="" productCategoryTypeId="REVOLVING_CREDIT"/>
+	<!-- 投资载体 -->
+	<ProductCategoryType description="Investment Vehicle" hasTable="N" parentTypeId="" productCategoryTypeId="INVESTMENT_VEHICLE"/>
+	<!-- 租赁 -->
+	<ProductCategoryType description="Lease" hasTable="N" parentTypeId="" productCategoryTypeId="LEASE"/>
+	
+	
+	<!-- 账户角色类型  -->
+	<RoleType description="Account Role Type" hasTable="N" parentTypeId="" roleTypeId="ACCOUNT"/>
+	<!-- 批准用户  -->
+	<RoleType description="Approved User" hasTable="N" parentTypeId="" roleTypeId="APPROVED_USER"/>
+	<!-- 资产角色类型 -->
+	<RoleType description="Asset Role Type" hasTable="N" parentTypeId="" roleTypeId="ASSET_ROLE_TYPE"/>
+	<!-- 协议角色类型 -->
+	<RoleType description="Asset Role Type" hasTable="N" parentTypeId="" roleTypeId="AGREEMENT_ROLE_TYPE"/>
+	<!-- 竞争对手 -->
+	<RoleType description="Competitor" hasTable="N" parentTypeId="" roleTypeId="Competitor"/>
+	<!-- 联络人 -->
+	<RoleType description="Contact" hasTable="N" parentTypeId="" roleTypeId="CONTACT"/>
+	<!-- 签约人 -->
+	<RoleType description="Contractor" hasTable="N" parentTypeId="" roleTypeId="CONTRACTOR"/>
+	<!-- 财团控制人 -->
+	<RoleType description="Controlling Syndicator" hasTable="N" parentTypeId="" roleTypeId="CONTROLLING_SYNDICATOR"/>
+	<!-- 部门 -->
+	<RoleType description="Department" hasTable="N" parentTypeId="" roleTypeId="DEPARTMENT"/>
+	<!-- 分支机构 -->
+	<RoleType description="Division" hasTable="N" parentTypeId="" roleTypeId="DIVISION"/>
+	<!-- 雇员 -->
+	<RoleType description="Employee" hasTable="N" parentTypeId="" roleTypeId="EMPLOYEE"/>
+	<!-- 投资人 -->
+	<RoleType description="Investor" hasTable="N" parentTypeId="" roleTypeId="INVESTOR"/>
+	<!-- 共同所有人 -->
+	<RoleType description="Joint Owner" hasTable="N" parentTypeId="" roleTypeId="JOINT_OWNER"/>
+	<!-- 贷款客户 -->
+	<RoleType description="LoanCustomer" hasTable="N" parentTypeId="CUSTOMER" roleTypeId="LOAN_CUSTOMER"/>
+	<!-- 财团参与人 -->
+	<RoleType description="Participating Syndicator" hasTable="N" parentTypeId="" roleTypeId="PARTICIPAT_SYNDICATOR"/>
+	<!-- 合作伙伴 -->
+	<RoleType description="Partner" hasTable="N" parentTypeId="" roleTypeId="PARTNER"/>
+	<!-- 担保人 -->
+	<RoleType description="Guarantor" hasTable="N" parentTypeId="" roleTypeId="GUARANTOR"/>
+	<!-- 住户 -->
+	<RoleType description="House" hasTable="N" parentTypeId="" roleTypeId="HOUSE"/>
+	<!-- 组织单位 -->
+	<RoleType description="Organization Unit" hasTable="N" parentTypeId="" roleTypeId="ORGANIZATION_UNIT"/>
+	<!-- 其他通知单位 -->
+	<RoleType description="Other Organization Unit" hasTable="N" parentTypeId="" roleTypeId="OTHER_ORG_UNIT"/>
+	<!-- 上级组织 -->
+	<RoleType description="Parent Organization" hasTable="N" parentTypeId="" roleTypeId="PARENT_ORGANIZATION"/>
+	<!-- 分公司 -->
+	<RoleType description="Subsidiary" hasTable="N" parentTypeId="" roleTypeId="SUBSIDIARY"/>
+	<!-- 股东 -->
+	<RoleType description="Shareholder" hasTable="N" parentTypeId="" roleTypeId="SHAREHOLDER"/>
+	<!-- 管理机构 -->
+	<RoleType description="Regulatory Agency" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="REGULATORY_AGENCY"/>
+	<!-- 潜在客户 -->
+	<RoleType description="Prospect" hasTable="N" parentTypeId="" roleTypeId="PROSPECT"/>
+	
+	<!-- 财团参加者关系 -->
+	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Syndicator Relationship" partyRelationshipTypeId="SYNDICATOR_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+	<!-- 供应商关系 -->
+	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Supplier" partyRelationshipTypeId="SUPPLIER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+	<!-- 股东关系 -->
+	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Shareholder Relationship" partyRelationshipTypeId="SHAREHOLDER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+	<!-- 潜在客户关系 -->
+	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Prospect Relationship" partyRelationshipTypeId="PROSPECT_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+	
+	<!-- 账户费用 -->
+	<AccountTransactionType description="Account Fee" accountTransactionTypeId="ACCOUNT_FEE"/>
+	<!-- 账户支付 -->
+	<AccountTransactionType description="Account Payment" accountTransactionTypeId="ACCOUNT_PAYMENT"/>
+	<!-- 账户请求事务 -->
+	<AccountTransactionType description="Account Request" accountTransactionTypeId="ACCOUNT_REQUEST"/>
+	<!-- 账户咨询请求 -->
+	<AccountTransactionType description="Inquiry Request" accountTransactionTypeId="INQUIRY_REQUEST"/>
+	<!-- 账户变更请求 -->
+	<AccountTransactionType description="Change Request" accountTransactionTypeId="CHANGE_REQUEST"/>
+	<!-- 红利 -->
+	<AccountTransactionType description="Dividend" accountTransactionTypeId="DIVIDEND"/>
+	<!-- 交换事件 -->
+	<AccountTransactionType description="ExchangeTransaction" accountTransactionTypeId="EXCHANGE_TRANSACTION"/>
+	<!-- 买入事务 -->
+	<AccountTransactionType description="Buy Transaction" accountTransactionTypeId="BUY_TRANSACTION"/>
+	<!-- 卖出事务 -->
+	<AccountTransactionType description="Sell Transaction" accountTransactionTypeId="SELL_TRANSACTION"/>
+	<!-- 利息 -->
+	<AccountTransactionType description="Interest" accountTransactionTypeId="INTEREST"/>
+	<!-- 共有基金事务 -->
+	<AccountTransactionType description="Mutual Fund Transaction" accountTransactionTypeId="MUTUAL_FUND_TRANS"/>
+	<!-- 特殊账户请求 -->
+	<AccountTransactionType description="Special Request" accountTransactionTypeId="SPECIAL_REQUEST"/>
+	<!-- 债券事务 -->
+	<AccountTransactionType description="Securities Transaction" accountTransactionTypeId="SECURITIES_TRANS"/>
+	<!-- 偿还事务 -->
+	<AccountTransactionType description="Redemption Transaction" accountTransactionTypeId="REDEMPTION_TRANS"/>
+	<!-- 购买事务 -->
+	<AccountTransactionType description="Purchase Transaction" accountTransactionTypeId="PURCHASE_TRANS"/>
+	
+ 	<!-- 授权事务任务 -->
+ 	<AccountTransactionTaskType description="Authorize Transaction Task" transactionTaskTypeId="AUTHORIZE_TRANS_TASK"/>
+	
+	<!-- 金融协议 -->
+	<AgreementType agreementTypeId="FINANCIAL_AGREEMENT" description="Financial Agreement" hasTable="N" parentTypeId=""/>
+	<!-- 投资协议 -->
+	<AgreementType agreementTypeId="INVESTMENT_AGREEMENT" description="Investment Agreement" hasTable="N" parentTypeId=""/>
+	<!-- 租赁协议 -->
+	<AgreementType agreementTypeId="LEASING_AGREEMENT" description="Leasing Agreement" hasTable="N" parentTypeId=""/>
+	<!-- 贷款协议 -->
+	<AgreementType agreementTypeId="LOAN_AGREEMENT" description="Loan Agreement" hasTable="N" parentTypeId=""/>
+</entity-engine-xml>

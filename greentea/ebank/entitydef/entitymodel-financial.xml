@@ -1,0 +1,1999 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
+  <!-- ========================================================= -->
+  <!-- ======================== Defaults ======================= -->
+  <!-- ========================================================= -->
+    <title>Entity of an Open For Business Project Component</title>
+    <description>None</description>
+    <copyright>Copyright 2001-2008 The Apache Software Foundation</copyright>
+    <author>None</author>
+    <version>1.0</version>
+	
+
+	<!-- Account相关 -->
+	<entity entity-name="Account"
+            package-name="org.ofbiz.bank.account"
+            title="Account Entity">
+      <description>账户</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="accountTypeId" type="id-ne"></field>
+      <field name="agreementId" type="id"><description>协议标识</description></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_ACCT_AGR" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+    </entity>
+    
+    <entity entity-name="AccountType" 
+			package-name="org.ofbiz.bank.account" 
+			title="Account Relationship Type Entity">
+		<description>账户类型</description>
+        <field name="accountTypeId" type="id-ne"></field>
+        <field name="parentTypeId" type="id-ne"></field>
+      	<field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+      	<prim-key field="accountTypeId"/>
+    </entity>
+
+	<entity entity-name="AccountFact"
+            package-name="org.ofbiz.bank.account"
+            title="Account Fact Entity">
+      <description>账户事实</description>
+      <field name="accountManagerPartyId" type="id-ne"><description>账户管理员当事人标识</description></field>
+      <field name="facilityId" type="id-ne"><description>设施标识</description></field>
+	  <field name="financialProductId" type="id-ne"><description>金融产品标识</description></field>
+	  <field name="internalOrganizationId" type="id-ne"><description>内部组织标识</description></field>
+	  <field name="marketSegmentId" type="id-ne"><description>市场划分标识</description></field>
+	  <field name="ownerPartyId" type="id-ne"><description>户主当事人标识</description></field>
+	  <field name="partyId" type="id-ne"><description>当事人标识</description></field>
+	  <field name="weekId" type="id-ne"><description>周标识</description></field>
+	  <field name="averageBalance" type="currency-amount"><description>平均余额</description></field>
+	  <field name="averageReturn" type="floating-point"><description>平均利润</description></field>
+	  <field name="numberOfAccounts" type="numeric"><description>账户数目</description></field>
+	  <field name="numberOfTransactions" type="numeric"><description>事务数目</description></field>
+
+	  <prim-key field="accountManagerPartyId" />
+	  <prim-key field="facilityId" />
+	  <prim-key field="financialProductId" />
+	  <prim-key field="internalOrganizationId" />
+	  <prim-key field="marketSegmentId" />
+	  <prim-key field="ownerPartyId" />
+	  <prim-key field="partyId" />
+	  <prim-key field="weekId" />
+
+	  <relation type="one" fk-name="BANK_ACFT_ACMR" rel-entity-name="AccountManager">
+        <key-map field-name="accountManagerPartyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACFT_FAS" rel-entity-name="Facilitys">
+        <key-map field-name="facilityId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACFT_FIPS" rel-entity-name="FinancialProducts">
+        <key-map field-name="financialProductId" />
+      </relation>
+	  <relation type="one" fk-name="BANK_ACfT_ROTE" rel-entity-name="RoleType">
+        <key-map field-name="internalOrganizationId" rel-field-name="roleTypeId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACfT_MAST" rel-entity-name="MarketSegment">
+        <key-map field-name="marketSegmentId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACfT_OWS" rel-entity-name="Party">
+        <key-map field-name="ownerPartyId"  rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACFT_PAY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+	  
+    </entity>
+    
+    
+    <entity entity-name="AccountManager"
+            package-name="org.ofbiz.bank.account"
+            title="Account Fee Entity">
+      <description>账户管理员</description>
+      <field name="accountManagerPartyId" type="id-ne"><description>账户管理员当事人标识</description></field>
+      <field name="accountManagerName" type="name"><description>账户管理员名称</description></field>
+      <field name="partyType" type="name"><description>当事人类型</description></field>
+	  <prim-key field="accountManagerPartyId" />
+    </entity>
+
+    <entity entity-name="AccountNotification"
+            package-name="org.ofbiz.bank.account"
+            title="Account Notification Entity">
+      <description>账户通知</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="date" type="date-time"><description>日期</description></field>
+      <field name="workEffortId" type="id"><description>工作计划标识</description></field>
+      <field name="balance" type="currency-amount"><description>余额</description></field>
+      <field name="message" type="long-varchar"><description>信息</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="date" />
+	  <relation type="one" fk-name="BANK_ACTNTF_ACT" rel-entity-name="Account">
+        <key-map field-name="accountNumber"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTNTF_WOET" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+    </entity>
+
+
+    <entity entity-name="AccountProduct" 
+			package-name="org.ofbiz.bank.account" 
+			title="Account Product Entity">
+		<description>账户产品</description>
+        <field name="accountNumber" type="id-ne"><description>账号</description></field>
+        <field name="productId" type="id-ne"><description>金融产品标识</description></field>
+        <field name="fromDate" type="date-time"><description>起始日期</description></field>
+      	<field name="thruDate" type="date-time"><description>终止日期</description></field>
+      	<prim-key field="accountNumber"/>
+        <prim-key field="productId"/>
+        <relation type="one" fk-name="BANK_ACPT_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	    </relation>
+        <relation type="one" fk-name="BANK_ACPT_FP" rel-entity-name="FinancialProduct">
+	        <key-map field-name="productId"/>
+	    </relation>
+    </entity>
+
+    <entity entity-name="AccountRelationship" 
+			package-name="org.ofbiz.bank.account" 
+			title="Account Relationship Entity">
+		<description>账户关系</description>
+        <field name="accountNumberFrom" type="id-ne"><description>账号</description></field>
+        <field name="accountNumberTo" type="id-ne"><description>账号</description></field>
+        <field name="accountRelationshipTypeId" type="id-ne"><description>账户关系类型标识</description></field>
+        <field name="fromDate" type="date-time"><description>起始日期</description></field>
+      	<field name="thruDate" type="date-time"><description>终止日期</description></field>
+      	<prim-key field="accountNumberFrom"/>
+      	<prim-key field="accountNumberTo"/>
+      	<prim-key field="accountRelationshipTypeId"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="BANK_ACCTR_ACCT" rel-entity-name="Account" title="From">
+	        <key-map field-name="accountNumberFrom"  rel-field-name="accountNumber"/>
+	    </relation>
+		<relation type="one" fk-name="BANK_ACCTT_ACCT" rel-entity-name="Account" title="To">
+	        <key-map field-name="accountNumberTo"  rel-field-name="accountNumber"/>
+	    </relation>
+		<relation type="one" fk-name="BANK_ACCT_ACRP" rel-entity-name="AccountRelationship">
+	        <key-map field-name="accountRelationshipTypeId"/>
+	    </relation>
+    </entity>
+
+    <entity entity-name="AccountRelationshipType" 
+			package-name="org.ofbiz.bank.account" 
+			title="Account Relationship Type Entity">
+		<description>账户关系类型</description>
+        <field name="accountRelationshipTypeId" type="id-ne"></field>
+        <field name="description" type="description"></field>
+      	<prim-key field="accountRelationshipTypeId"/>
+    </entity>
+
+
+
+    <entity entity-name="AccountRole"
+            package-name="org.ofbiz.bank.account"
+            title="Account Role Entity">
+      <description>账户角色</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="partyId" type="id-ne"><description>当事人标识</description></field>
+	  <field name="roleTypeId" type="id-ne"><description>角色类型标识</description></field>
+	  <field name="fromDate" type="date-time"><description>起始日期</description></field>
+	  <field name="thruDate" type="date-time"><description>终止日期</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="partyId" />
+	  <prim-key field="roleTypeId" />
+
+      <relation type="one" fk-name="BANK_ACRE_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+	  <relation type="one" fk-name="BANK_ACRE_Pay" rel-entity-name="Party">
+	        <key-map field-name="partyId"/>
+	  </relation>
+	  <relation type="one" fk-name="BANK_ACRE_ACRTE" rel-entity-name="AccountRoleType">
+	        <key-map field-name="roleTypeId"/>
+	  </relation>
+    </entity>
+
+
+    <entity entity-name="AccountStatus"
+            package-name="org.ofbiz.bank.account"
+            title="Account Status Entity">
+      <description>账户状态</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="statusTypeId" type="id-ne"><description>状态类型标识</description></field>
+	  <field name="dateTime" type="date-time"><description>时间</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="statusTypeId" />
+	  <prim-key field="dateTime" />
+	  <relation type="one" fk-name="BANK_ACSS_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+	  <relation type="one" fk-name="BANK_ACSS_ACSTE" rel-entity-name="AccountStatusType">
+	        <key-map field-name="statusTypeId"/>
+	  </relation>
+    </entity>
+
+    <entity entity-name="AccountStatusType"
+            package-name="org.ofbiz.bank.account"
+            title="Account Status Type Entity">
+      <description>账户状态类型</description>
+      <field name="statusTypeId" type="id-ne"><description>状态类型标识</description></field>
+	  <prim-key field="statusTypeId" />
+    </entity>
+
+	<entity entity-name="AccountTarget"
+            package-name="org.ofbiz.bank.account"
+            title="Account Target Entity">
+      <description>账户目标</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="accountScore" type="numeric"><description>账户分数</description></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_ACTT_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+    </entity>
+
+    <entity entity-name="AccountTransaction"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Entity">
+      <description>账户事务</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="accountTransactionId" type="id-ne"><description>账户事务标识</description></field>
+	  <field name="accountTransactionTypeId" type="id"><description>账户事务类型标识</description></field>
+	  <field name="amount" type="currency-amount"><description>金额</description></field>
+      <field name="entryDate" type="date-time"><description>进入日期</description></field>
+	  <field name="postDate" type="date-time"><description>过账日期</description></field>
+      <field name="transactionDate" type="date-time"><description>事务日期</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="accountTransactionId" />
+	  <relation type="one" fk-name="BANK_ACTN_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+	  <relation type="one" fk-name="BANK_ACTN_ACT" rel-entity-name="AccountTransactionType">
+	        <key-map field-name="accountTransactionTypeId"/>
+	  </relation>
+    </entity>
+
+	<entity entity-name="AccountTransactionFact"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Fact Entity">
+      <description>账户事务事实</description>
+      <field name="dayId" type="id-ne"></field>
+      <field name="facilityId" type="id-ne"></field>
+	  <field name="financialProductId" type="id-ne"></field>
+	  <field name="internalOrganizationId" type="id-ne"></field>
+	  <field name="marketSegmentId" type="id-ne"></field>
+	  <field name="ownerPartyId" type="id-ne"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <field name="transactionTypeId" type="id-ne"></field>
+	  <field name="numberOfTransactions" type="numeric"></field>
+	  <field name="totalTransactionAmount" type="currency-amount"></field>
+	  <prim-key field="dayId" />
+	  <prim-key field="facilityId" />
+	  <prim-key field="financialProductId" />
+	  <prim-key field="internalOrganizationId" />
+	  <prim-key field="marketSegmentId" />
+	  <prim-key field="ownerPartyId" />
+	  <prim-key field="partyId" />
+	  <prim-key field="transactionTypeId" />
+	  <relation type="one" fk-name="BANK_ACTFT_TIBY" rel-entity-name="TimeByDay">
+        <key-map field-name="dayId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_FAS" rel-entity-name="Facilitys">
+        <key-map field-name="facilityId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_FIPS" rel-entity-name="FinancialProducts">
+        <key-map field-name="financialProductId" />
+      </relation>
+	 <relation type="one" fk-name="BANK_ACTFT_ROTE" rel-entity-name="RoleType">
+        <key-map field-name="internalOrganizationId" rel-field-name="roleTypeId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_MAST" rel-entity-name="MarketSegment">
+        <key-map field-name="marketSegmentId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_OWS" rel-entity-name="Owners">
+        <key-map field-name="ownerPartyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_PAY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+       </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_ACT" rel-entity-name="AccountTransactionType">
+	        <key-map field-name="transactionTypeId" rel-field-name="accountTransactionTypeId"/>
+	  </relation>
+    </entity>
+
+	<entity entity-name="AccountTransactionRelationship"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Relationship Entity">
+      <description>账户事务关系</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="accountTransactionIdFrom" type="id-ne"><description>账户事务标识</description></field>
+	  <field name="accountTransactionIdTo" type="id-ne"><description>目标账户事务标识</description></field>
+	  <field name="accountTransRelTypeId" type="id"><description>账户事务关系类型标识</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="accountTransactionIdFrom" />
+	  <prim-key field="accountTransactionIdTo" />
+
+	  <relation type="one" fk-name="BANK_ACTRP_ACTN" rel-entity-name="AccountTransaction">
+        <key-map field-name="accountNumber"/>
+		<key-map field-name="accountTransactionIdFrom" rel-field-name="accountTransactionId"/>
+		<key-map field-name="accountTransactionIdTo" rel-field-name="accountTransactionId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTFT_ACTRTE" rel-entity-name="AccountTransactionRelationshipType">
+        <key-map field-name="accountTransRelTypeId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="AccountTransactionRelationshipType"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Relationship Type Entity">
+      <description>账户事务关系类型</description>
+      <field name="accountTransRelTypeId" type="id-ne"><description>账户事务关系类型标识</description></field>
+      <field name="description" type="description"><description>描述</description></field>
+	  <prim-key field="accountTransRelTypeId" />
+    </entity>
+
+	<entity entity-name="AccountTransactionStatus"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Status Entity">
+      <description>账户事务状态</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+      <field name="accountTransactionId" type="id-ne"><description>账户事务标识</description></field>
+	  <field name="statusTypeId" type="id-ne"><description>状态类型标识</description></field>
+	  <field name="statusDatetime" type="date-time"><description>状态时间</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="accountTransactionId" />
+	  <prim-key field="statusTypeId" />
+	  <relation type="one" fk-name="BANK_ACTSS_ACTN" rel-entity-name="AccountTransaction">
+	    <key-map field-name="accountNumber"/>
+		<key-map field-name="accountTransactionId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTSS_ACSTE" rel-entity-name="AccountStatusType">
+		<key-map field-name="statusTypeId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="AccountTransactionTask"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Task Entity">
+      <description>账户事务任务</description>
+      <field name="transactionTaskId" type="id-ne"><description>事务任务标识</description></field>
+      <field name="transactionTaskTypeId" type="id-ne"><description>事务任务类型标识</description></field>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+	  <field name="accountTransactionId" type="id"><description>账户事务标识</description></field>
+	  <field name="uomId" type="id"><description>度量单位标识</description></field>
+	  <field name="description" type="description"><description>描述</description></field>
+	  <field name="requestedDate" type="date-time"><description>请求日期</description></field>
+	  <field name="taskCreationDate" type="date-time"><description>任务创建日期</description></field>
+	  <prim-key field="transactionTaskId" />
+	  <relation type="one" fk-name="BANK_ACTTK_ACTTTE" rel-entity-name="AccountTransactionTaskType">
+	    <key-map field-name="transactionTaskId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTTK_ACTN" rel-entity-name="AccountTransaction">
+	    <key-map field-name="accountNumber"/>
+		<key-map field-name="accountTransactionId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTTK_UNOME" rel-entity-name="UnitOfMeasure">
+	    <key-map field-name="uomId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="AccountTransactionTaskType"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Task Type Entity">
+      <description>账户事务任务类型</description>
+      <field name="transactionTaskTypeId" type="id-ne"><description>事务任务类型标识</description></field>
+      <field name="description" type="description"><description>描述</description></field>
+	  <prim-key field="transactionTaskId" />
+    </entity>
+
+	<entity entity-name="AccountTransactionType"
+            package-name="org.ofbiz.bank.account"
+            title="Account Transaction Types Entity">
+      <description>账户事务类型</description>
+      <field name="accountTransactionTypeId" type="id-ne"><description>账户事务类型标识</description></field>
+      <field name="description" type="description"><description>描述</description></field>
+	  <prim-key field="accountTransactionTypeId" />
+    </entity>
+
+<!-- Agreement相关 -->
+
+	<entity entity-name="AgreementAssetUsage"
+            package-name="org.ofbiz.bank.agreement"
+            title="Agreement Asset Usage Entity">
+      <description>协议资产使用</description>
+      <field name="assetId" type="id-ne"><description>资产标识</description></field>
+      <field name="agreementAssetUsageId" type="id-ne"><description>协议资产使用标识</description></field>
+	  <field name="agreementId" type="id"><description></description></field>
+	  <field name="agreementItemSeqId" type="id"><description></description></field>
+	  <field name="assetUsageTypeId" type="id"><description>资产使用类型标识</description></field>
+	  <prim-key field="assetId" />
+	  <prim-key field="agreementAssetUsageId" />
+	  <relation type="one" fk-name="BANK_ACTTK_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTTK_AGIM" rel-entity-name="AgreementItem">
+	    <key-map field-name="agreementId"/>
+		<key-map field-name="agreementItemSeqId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ACTTK_ASUTE" rel-entity-name="AssetUsageType">
+	    <key-map field-name="assetUsageTypeId"/>
+      </relation>
+    </entity>
+
+
+
+	<entity entity-name="AgreementStatus"
+            package-name="org.ofbiz.bank.agreement"
+            title="Agreement Status Entity">
+      <description>协议状态</description>
+      <field name="agreementId" type="id-ne"></field>
+      <field name="statusTypeId" type="id-ne"></field>
+	  <field name="completionDate" type="date-time"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="agreementId" />
+	  <prim-key field="statusTypeId" />
+	  <relation type="one" fk-name="BANK_AGSS_AGT" rel-entity-name="Agreement">
+	    <key-map field-name="agreementId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_AGSS_AGSTE" rel-entity-name="AgreementStatusType">
+	    <key-map field-name="statusTypeId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="AgreementStatusType"
+            package-name="org.ofbiz.bank.agreement"
+            title="Agreement Status Type Entity">
+      <description>协议状态类型</description>
+      <field name="statusTypeId" type="id-ne"></field>
+	  <prim-key field="statusTypeId" />
+    </entity>
+
+<!--  -->
+
+
+	<entity entity-name="AnalysisOutcome"
+            package-name="org.ofbiz.bank.agreement"
+            title="Analysis Outcome Entity">
+      <description>分析结果</description>
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="analysisOutcomeId" type="id-ne"></field>
+	  <field name="accountNumber" type="id"></field>
+	  <field name="analysisParameterId" type="id"></field>
+	  <field name="marketSegmentId" type="id"></field>
+	  <field name="partyId" type="id"></field>
+	  <field name="analysisOutcomeScore" type="numeric"></field>
+	  <field name="comments" type="comment"></field>
+	  <prim-key field="workEffortId" />
+	  <prim-key field="analysisOutcomeId" />
+	  <relation type="one" fk-name="BANK_ANOE_WOET" rel-entity-name="WorkEffort">
+	    <key-map field-name="workEffortId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ANOE_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+	  <relation type="one" fk-name="BANK_ANOE_ANPR" rel-entity-name="AnalysisParameter">
+	    <key-map field-name="analysisParameterId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ANOE_MAST" rel-entity-name="MarketSegment">
+        <key-map field-name="marketSegmentId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ANOE_PAY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="AnalysisParameter"
+            package-name="org.ofbiz.bank.agreement"
+            title="Analysis Parameter Entity">
+      <description>分析参数</description>
+      <field name="analysisParameterId" type="id-ne"></field>
+      <field name="parameterTypeId" type="id"></field>
+	  <field name="analysisParameterWeight" type="floating-point"></field>
+	  <field name="parameterRange" type="numeric"></field>
+	  <field name="parameterValue" type="numeric"></field>
+	  <prim-key field="analysisParameterId" />
+	  <relation type="one" fk-name="BANK_ANPR_PATE" rel-entity-name="ParameterType">
+        <key-map field-name="parameterTypeId"/>
+      </relation>
+    </entity>
+
+
+
+<!-- asset -->
+	<entity entity-name="Asset"
+            package-name="org.ofbiz.bank.asset"
+            title="Asset Entity">
+      <description>资产</description>
+      <field name="assetId" type="id-ne"><description>资产标识</description></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="assetId" />
+    </entity>
+
+	<entity entity-name="AssetRole"
+            package-name="org.ofbiz.bank.asset"
+            title="Asset Role Entity">
+      <description>资产角色</description>
+      <field name="assetId" type="id-ne"><description>资产标识</description></field>
+      <field name="partyId" type="id-ne"></field>
+	  <field name="roleTypeId" type="id-ne"></field>
+	  <field name="equityValue" type="numeric"><description>权益值</description></field>
+	  <prim-key field="assetId" />
+	  <prim-key field="partyId" />
+	  <prim-key field="roleTypeId" />
+	  <relation type="one" fk-name="BANK_ASRE_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ASRE_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ASRE_ASRTE" rel-entity-name="AssetRoleType">
+	    <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="AssetUsageType"
+            package-name="org.ofbiz.bank.asset"
+            title="Asset Usage Type Entity">
+      <description>资产使用类型</description>
+      <field name="assetUsageTypeId" type="id-ne"><description>资产使用类型标识</description></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="assetUsageTypeId" />
+    </entity>
+
+<!-- task -->
+
+
+
+
+
+
+
+
+
+
+
+	<entity entity-name="CreditCardAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Credit Card Account Entity">
+      <description>信用卡账户</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_CRCAT_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+    </entity>
+
+
+
+
+
+
+
+
+
+	<entity entity-name="Deposit"
+            package-name="org.ofbiz.bank.account"
+            title="Deposit Entity">
+      <description>存款</description>
+      <field name="accountNumber" type="id-ne"><description>账号</description></field>
+	  <field name="accountTransactionId" type="id-ne"><description>账户事务标识</description></field>
+	  <field name="financialAccountTransId" type="id-ne"><description>金融账户事务标识</description></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="accountTransactionId" />
+	  <prim-key field="financialAccountTransId" />
+	  <relation type="one" fk-name="BANK_DET_ACTN" rel-entity-name="AccountTransaction">
+	    <key-map field-name="accountNumber"/>
+		<key-map field-name="accountTransactionId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_DET_FITN" rel-entity-name="FinacialTransaction">
+	    <key-map field-name="accountNumber"/>
+		<key-map field-name="accountTransactionId"/>
+      </relation>
+    </entity>
+
+
+
+
+
+
+
+	<entity entity-name="Employment"
+            package-name="org.ofbiz.bank.party"
+            title="Employment Entity">
+      <description>雇佣</description>
+      <field name="fromDate" type="date-time"></field>
+      <field name="partyIdFrom" type="id-ne"></field>
+	  <field name="partyIdTo" type="id-ne"></field>
+	  <field name="roleTypeIdFrom" type="id-ne"></field>
+	  <field name="roleTypeIdTo" type="id-ne"></field>
+	  <field name="terminationReasonId" type="id"></field>
+	  <field name="terminationTypeId" type="id"></field>
+	  <prim-key field="fromDate" />
+	  <prim-key field="partyIdFrom" />
+	  <prim-key field="partyIdTo" />
+	  <prim-key field="roleTypeIdFrom" />
+	  <prim-key field="roleTypeIdTo" />
+	  <relation type="one" fk-name="BANK_EMT_PAYF" rel-entity-name="Party">
+	    <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_EMT_PAYT" rel-entity-name="Party">
+	    <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_EMT_ROTEF" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_EMT_ROTET" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="Equity"
+            package-name="org.ofbiz.bank.account"
+            title="Equity Entity">
+      <description>股权证</description>
+      <field name="assetId" type="id-ne"></field>
+	  <field name="productCategoryId" type="id-ne"></field>
+	  <prim-key field="assetId" />
+	  <prim-key field="productCategoryId" />
+	  <relation type="one" fk-name="BANK_EQY_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_EQY_PRCY" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="EquityLine"
+            package-name="org.ofbiz.bank.account"
+            title="Equity Line Entity">
+      <description>限额股权</description>
+	  <field name="productCategoryId" type="id-ne"></field>
+	  <prim-key field="productCategoryId" />
+	  <relation type="one" fk-name="BANK_EQLE_PRCY" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="EquityLineAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Equity Line Account Entity">
+      <description>限额股权账户</description>
+      <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_EQLAT_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+    </entity>
+
+	<entity entity-name="EstimatedIncome"
+            package-name="org.ofbiz.bank.account"
+            title="Estimated Income Entity">
+      <description>预计收入</description>
+      <field name="assetId" type="id-ne"></field>
+	  <prim-key field="assetId" />
+	  <relation type="one" fk-name="BANK_ESIE_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+    </entity>
+
+
+
+	<entity entity-name="Facilitys"
+            package-name="org.ofbiz.bank.account"
+            title="Facilitys Entity">
+      <description>设施</description>
+      <field name="facilityId" type="id-ne"><description>设施标识</description></field>
+	  <field name="facilityName" type="name"><description>设施名称</description></field>
+	  <field name="GeoLevel1" type="description"><description>地理范围层次1</description></field>
+	  <field name="GeoLevel2" type="description"><description>地理范围层次2</description></field>
+	  <field name="GeoLevel3" type="description"><description>地理范围层次3</description></field>
+	  <prim-key field="facilityId" />
+    </entity>
+
+
+
+
+	<entity entity-name="FinancialCardAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Financial Card Account Entity">
+      <description>金额卡账户</description>
+      <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_FICAT_ACT" rel-entity-name="Account">
+	        <key-map field-name="accountNumber"/>
+	  </relation>
+    </entity>
+
+
+	<entity entity-name="FinancialInstitution"
+            package-name="org.ofbiz.bank.party"
+            title="Financial Institution Entity">
+      <description>金融机构</description>
+      <field name="partyId" type="id-ne"></field>
+	  <field name="roleTypeId" type="id-ne"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="roleTypeId" />
+	  <relation type="one" fk-name="BANK_FIIN_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIIN_ROTE" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="FinancialProduct"
+            package-name="org.ofbiz.bank.product"
+            title="Financial Product Entity">
+      <description>金融产品</description>
+      <field name="productId" type="id-ne"></field>
+	  <field name="name" type="name"></field>
+	  <prim-key field="productId" />
+	  <relation type="one" fk-name="BANK_FIPT_PRT" rel-entity-name="Product">
+	    <key-map field-name="productId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="FinancialProductRule"
+            package-name="org.ofbiz.bank.product"
+            title="Financial Product Rule Entity">
+      <description>金融产品规则</description>
+      <field name="financialProductRuleId" type="id-ne"><description>金融产品规则标识</description></field>
+      <field name="agreementTermId" type="id"><description>协议条款标识</description></field>
+	  <field name="functionalSettingId" type="id"><description>功能设置标识</description></field>
+	  <field name="productCategoryId" type="id"><description>产品类别标识</description></field>
+	  <field name="productFeatureId" type="id"><description>产品特征标识</description></field>
+	  <field name="productId" type="id"><description>产品标识</description></field>
+	  <field name="regulationRequirementId" type="id"><description>条例需求标识</description></field>
+	  <field name="termTypeId" type="id"><description>条款类型标识</description></field>
+	  <field name="description" type="description"><description>描述</description></field>
+	  <field name="fromDate" type="date-time"><description>起始日期</description></field>
+	  <field name="thruDate" type="date-time"><description>终止日期</description></field>
+	  <field name="ruleValue" type="numeric"><description>规则值</description></field>
+	  <prim-key field="financialProductRuleId" />	
+
+	  <relation type="one" fk-name="BANK_FIPRE_AGTM" rel-entity-name="AgreementTerm">
+	    <key-map field-name="agreementTermId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIPRE_FUSG" rel-entity-name="FunctionalSetting">
+	    <key-map field-name="functionalSettingId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIPRE_PRCY" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FEFE_FEE" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIPRE_PRT" rel-entity-name="Product">
+	    <key-map field-name="productId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIPRE_FIRN" rel-entity-name="FinancialRegulation">
+	    <key-map field-name="regulationReqUirementId" rel-field-name="financialRegulationId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIPRE_TETE" rel-entity-name="TermType">
+	    <key-map field-name="termTypeId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="FinancialProducts"
+            package-name="org.ofbiz.bank.product"
+            title="Financial Products Entity">
+      <description>金融产品</description>
+      <field name="financialProductId" type="id-ne"></field>
+      <field name="financialProductCategory" type="description"></field>
+	  <field name="financialProductName" type="name"></field>
+	  <field name="productCategoryRollup" type="description"><description>产品类别隶属关系</description></field>
+	  <prim-key field="financialProductId" />	 
+    </entity>
+
+	<entity entity-name="FinancialRegulation"
+            package-name="org.ofbiz.bank.account"
+            title="Financial Regulation Entity">
+      <description>金融条例</description>
+      <field name="financialRegulationId" type="id-ne"><description>金融条例标识</description></field>
+      <field name="description" type="description"></field>
+	  <field name="text" type="long-varchar"></field>
+	  <prim-key field="financialRegulationId" />
+    </entity>
+
+
+	<entity entity-name="FinancialTransaction"
+            package-name="org.ofbiz.bank.account"
+            title="Financial Transaction Entity">
+      <description>金融事务</description>
+      <field name="accountNumber" type="id-ne"></field>
+      <field name="accountTransactionId" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="accountTransactionId" />
+	  <relation type="one" fk-name="BANK_FITN_ACTN" rel-entity-name="AccountTransaction">
+	    <key-map field-name="accountNumber"/>
+		<key-map field-name="accountTransactionId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="FixedAsset"
+            package-name="org.ofbiz.bank.account"
+            title="Fixed Asset Entity">
+      <description>固定资产</description>
+      <field name="assetId" type="id-ne"><description>资产标识</description></field>
+      <field name="fixedAssetId" type="id-ne"><description></description></field>
+	  <field name="uomId" type="id"><description></description></field>
+	  <field name="dateAcquired" type="date-time"><description></description></field>
+	  <field name="dateLastService" type="date-time"><description></description></field>
+	  <field name="dateNextService" type="date-time"><description></description></field>
+	  <field name="fixedAssetTypeId" type="id"><description></description></field>
+	  <field name="name" type="name"><description></description></field>
+	  <field name="partyId" type="id"><description></description></field>
+	  <field name="productionCapacity" type="floating-point"><description></description></field>
+	  <field name="roleTypeId" type="id"><description></description></field>
+	  <prim-key field="assetId" />	 
+	  <prim-key field="fixedAssetId" />
+	  <relation type="one" fk-name="BANK_FIAT_UNOME" rel-entity-name="UnitOfMeasure">
+	    <key-map field-name="uomId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="FixedIncome"
+            package-name="org.ofbiz.bank.account"
+            title="Fixed Income Entity">
+      <description>固定收入</description>
+      <field name="assetId" type="id-ne"></field>
+      <field name="productCategoryId" type="id-ne"></field>
+	  <prim-key field="assetId" />
+	  <prim-key field="productCategoryId" />
+	  <relation type="one" fk-name="BANK_FIIE_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FIIE_PRCY" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="FunctionalSetting"
+            package-name="org.ofbiz.bank.functional"
+            title="Functional Setting Entity">
+      <description>功能设置</description>
+      <field name="functionalSettingId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+	  <prim-key field="functionalSettingId" />
+    </entity>
+
+
+	<entity entity-name="FunctionalSettingApplicabilty"
+            package-name="org.ofbiz.bank.Functional"
+            title="Functional Setting Applicabilty Entity">
+      <description>功能设置适用性</description>
+      <field name="functionalSettingId" type="id-ne"><description>功能设置标识</description></field>
+      <field name="funcSetApplicId" type="id-ne"><description>功能设置适用性标识</description></field>
+	  <field name="productFeatureId" type="id"><description></description></field>
+	  <field name="productId" type="id"><description></description></field>
+	  <field name="fromDate" type="date-time"><description></description></field>
+	  <field name="thruDate" type="date-time"><description></description></field>
+	  <field name="value" type="numeric"><description>值</description></field>
+	  <prim-key field="functionalSettingId" />	 
+	  <prim-key field="funcSetApplicId" />	
+	  <relation type="one" fk-name="BANK_FUSAY_FEE" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_FUSAY_PRT" rel-entity-name="Product">
+	    <key-map field-name="productId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="GovernmentRegulation"
+            package-name="org.ofbiz.bank.party"
+            title="Government Regulation Entity">
+      <description>政府条例</description>
+      <field name="financialRegulationId" type="id-ne"></field>
+	  <prim-key field="financialRegulationId" />	
+	  <relation type="one" fk-name="BANK_GORN_FUSG" rel-entity-name="FunctionalSetting">
+	    <key-map field-name="functionalSettingId"/>
+      </relation>
+    </entity>
+
+
+
+		<entity entity-name="House"
+            package-name="org.ofbiz.bank.product"
+            title="House Entity">
+      <description>房屋</description>
+	   <field name="assetId" type="id-ne"></field>
+      <field name="fixedAssetId" type="id-ne"></field>
+	  <prim-key field="assetId" />	
+	  <prim-key field="fixedAssetId" />	
+	  <relation type="one" fk-name="BANK_HOE_FIAT" rel-entity-name="FixedAsset">
+		<key-map field-name="assetId"/>
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+    </entity>
+
+
+
+	<entity entity-name="InformalRelationship"
+            package-name="org.ofbiz.bank.party"
+            title="Informal Relationship Entity">
+      <description>非正式关系</description>
+      <field name="fromDate" type="date-time"></field>
+      <field name="partyIdFrom" type="id-ne"></field>
+	  <field name="partyIdTo" type="id-ne"></field>
+	  <field name="roleTypeIdFrom" type="id-ne"></field>
+	  <field name="roleTypeIdTo" type="id-ne"></field>
+	  <prim-key field="fromDate" />	 
+	  <prim-key field="partyIdFrom" />	
+	  <prim-key field="partyIdTo" />	 
+	  <prim-key field="roleTypeIdFrom" />	
+	  <prim-key field="roleTypeIdTo" />	 
+	  <relation type="one" fk-name="BANK_INRP_PAYF" rel-entity-name="Party">
+	    <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_INRP_PAYT" rel-entity-name="Party">
+	    <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_INRP_ROTEF" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_INRP_ROTET" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+
+
+
+	<entity entity-name="InstallmentLoanAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Installment Loan Account Entity">
+      <description>分期付款贷款账户</description>
+      <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />	
+	  <relation type="one" fk-name="BANK_INLAT_ACT" rel-entity-name="Account">
+	    <key-map field-name="accountNumber"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="IntangibleAsset"
+            package-name="org.ofbiz.bank.asset"
+            title="Intangible Asset Entity">
+      <description>无形资产</description>
+      <field name="assetId" type="id-ne"></field>
+	  <prim-key field="assetId" />	  
+	  <relation type="one" fk-name="BANK_INAT_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+    </entity>
+
+
+
+
+	<entity entity-name="InternalOrganizations"
+            package-name="org.ofbiz.bank.party"
+            title="Internal Organizations Entity">
+      <description>内部组织</description>
+      <field name="internalOrganizationId" type="id-ne"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <field name="level2Organization" type="description"></field>
+	  <field name="level3Organization" type="description"></field>
+	  <field name="level4Organization" type="description"></field>
+	  <field name="name" type="name"></field>
+	  <prim-key field="partyId" />	
+	  <prim-key field="roleTypeId" />
+	  <relation type="one" fk-name="BANK_INONS_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_INONS_ROTE" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+
+
+
+	<entity entity-name="InvestmentObjective"
+            package-name="org.ofbiz.bank.account"
+            title="Investment Objective Entity">
+      <description>投资目标</description>
+      <field name="fromDate" type="date-time"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <prim-key field="fromDate" />	  
+	  <prim-key field="partyId" />	  
+	  <relation type="one" fk-name="BANK_INOE_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+
+
+
+	<entity entity-name="InvestmentVehicleAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Investment Vehicle Account Entity">
+      <description>投资载体账户</description>
+      <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_INVAT_ACT" rel-entity-name="Account">
+	    <key-map field-name="accountNumber"/>
+      </relation>
+    </entity>
+
+
+
+
+	<entity entity-name="Land"
+            package-name="org.ofbiz.bank.product"
+            title="Land Entity">
+      <description>土地</description>
+      <field name="assetId" type="id-ne"></field>
+	  <field name="fixedAssetId" type="id-ne"></field>
+	  <prim-key field="assetId" />	  
+	  <prim-key field="fixedAssetId" />	 
+	  <relation type="one" fk-name="BANK_LAD_FIAT" rel-entity-name="FixedAsset">
+		<key-map field-name="assetId"/>
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+    </entity>
+
+
+
+
+	<entity entity-name="LendingObjective"
+            package-name="org.ofbiz.bank.account"
+            title="Lending Objective Entity">
+      <description>借贷目标</description>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <prim-key field="fromDate" />	
+	  <prim-key field="partyId" />	
+	  <relation type="one" fk-name="BANK_LEOE_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="LineOfCreditAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Line Of Credit Account Entity">
+      <description>信用限额账户</description>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_LICAT_ACT" rel-entity-name="Account">
+	    <key-map field-name="accountNumber"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="Livestock"
+            package-name="org.ofbiz.bank.product"
+            title="Livestock Entity">
+      <description>牲畜</description>
+	  <field name="assetId" type="id-ne"></field>
+	  <field name="fixedAssetId" type="id-ne"></field>
+	  <prim-key field="assetId" />	
+	  <prim-key field="fixedAssetId" />
+	  <relation type="one" fk-name="BANK_LIK_FIAT" rel-entity-name="FixedAsset">
+		<key-map field-name="assetId"/>
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="LoanAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Loan Account Entity">
+      <description>贷款账户</description>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_LOAT_ACT" rel-entity-name="Account">
+	    <key-map field-name="accountNumber"/>
+      </relation>
+    </entity>
+
+
+
+
+
+
+	<entity entity-name="MarketSegment"
+            package-name="org.ofbiz.bank.market"
+            title="Market Segment Entity">
+      <description>市场划分</description>
+	  <field name="marketSegmentId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="marketSegmentId" />
+    </entity>
+
+	<entity entity-name="MarketSegmentAccount"
+            package-name="org.ofbiz.bank.market"
+            title="Market Segment Account Entity">
+      <description>市场划分账户</description>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <field name="marketSegmentId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>	  
+	  <prim-key field="accountNumber" />
+	  <prim-key field="marketSegmentId" />
+	  <prim-key field="fromDate" />
+	  <relation type="one" fk-name="BANK_MASAT_ACT" rel-entity-name="Account">
+	    <key-map field-name="accountNumber"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_MASAT_ACT" rel-entity-name="MarketSegment">
+	    <key-map field-name="marketSegmentId"/>
+      </relation>
+    </entity>
+
+
+	<entity entity-name="MarketSegmentParty"
+            package-name="org.ofbiz.bank.market"
+            title="Market Segment Party Entity">
+      <description>市场划分当事人</description>
+	  <field name="marketSegmentId" type="id-ne"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>	  
+	  <prim-key field="marketSegmentId" />
+	  <prim-key field="partyId" />
+	  <relation type="one" fk-name="BANK_MASPY_MASAT" rel-entity-name="MarketSegment">
+	    <key-map field-name="marketSegmentId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_MASPY_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="MarketSegmentTarget"
+            package-name="org.ofbiz.bank.market"
+            title="Market Segment Target Entity">
+      <description>市场划分目标</description>
+	  <field name="marketSegmentId" type="id-ne"></field>
+	  <field name="marketSegmentScore" type="id"></field>  
+	  <prim-key field="marketSegmentId" />
+	  <relation type="one" fk-name="BANK_MASTT_MASAT" rel-entity-name="MarketSegment">
+	    <key-map field-name="marketSegmentId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="MarketSegments"
+            package-name="org.ofbiz.bank.market"
+            title="Market Segments Entity">
+      <description>市场划分</description>
+	  <field name="marketSegmentId" type="id-ne"></field>
+	  <field name="description" type="description"></field>  
+	  <prim-key field="marketSegmentId" />
+    </entity>
+
+
+
+
+	<entity entity-name="MediaStatusType"
+            package-name="org.ofbiz.bank.market"
+            title="Media Status Type Entity">
+      <description>媒介状态类型</description>
+	  <field name="statusTypeId" type="id-ne"></field>
+	  <prim-key field="statusTypeId" />
+	  <relation type="one" fk-name="BANK_MESTE_STTE" rel-entity-name="StatusType">
+	    <key-map field-name="statusTypeId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="MediaType"
+            package-name="org.ofbiz.bank.Media"
+            title="Media Type Entity">
+      <description>媒介类型</description>
+	  <field name="mediaTypeId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="mediaTypeId" />
+    </entity>
+
+
+	<entity entity-name="MoneyMarket"
+            package-name="org.ofbiz.bank.market"
+            title="Money Market Entity">
+      <description>市场基金</description>
+	  <field name="assetId" type="id-ne"></field>
+	  <field name="productCategoryId" type="id-ne"></field>
+	  <prim-key field="assetId" />
+	  <prim-key field="productCategoryId" />
+	  <relation type="one" fk-name="BANK_MOMT_AST" rel-entity-name="Asset">
+	    <key-map field-name="assetId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_MOMT_PRCY" rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="MoneyMarketAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Money Market Account Entity">
+      <description>市场基金账户</description>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+    </entity>
+
+
+
+	<entity entity-name="MortgageAccount"
+            package-name="org.ofbiz.bank.account"
+            title="Mortgage Account Entity">
+      <description>抵押贷款账户</description>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_MOAT_ACT" rel-entity-name="Account">
+	    <key-map field-name="accountNumber"/>
+      </relation>
+    </entity>
+
+
+
+
+
+	<entity entity-name="NeedType"
+            package-name="org.ofbiz.bank.account"
+            title="Need Type Entity">
+      <description>需要类型</description>
+	  <field name="needTypeId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="needTypeId" />
+    </entity>
+
+
+
+
+	<entity entity-name="ObjectiveType"
+            package-name="org.ofbiz.bank.account"
+            title="Objective Type Entity">
+      <description>目标类型</description>
+	  <field name="objectiveTypeId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="objectiveTypeId" />
+    </entity>
+
+	<entity entity-name="Organization"
+            package-name="org.ofbiz.bank.organization"
+            title="Organization Entity">
+      <description>组织</description>
+	  <field name="partyId" type="id-ne"></field>
+	  <field name="name" type="name"></field>
+	  <prim-key field="partyId" />
+	  <relation type="one" fk-name="BANK_ORN_PAY" rel-entity-name="Party">
+	    <key-map field-name="partyId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="OrganizationContactRelationship"
+            package-name="org.ofbiz.bank.organization"
+            title="Organization Contact Relationship Entity">
+      <description>组织联系关系</description>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="partyIdFrom" type="id-ne"></field>
+	  <field name="partyIdTo" type="id-ne"></field>
+	  <field name="roleTypeIdFrom" type="id-ne"></field>
+	  <field name="roleTypeIdTo" type="id-ne"></field>
+	  <prim-key field="fromDate" />
+	  <prim-key field="partyIdFrom" />
+	  <prim-key field="partyIdTo" />
+	  <prim-key field="roleTypeIdFrom" />
+	  <prim-key field="roleTypeIdTo" />
+	  <relation type="one" fk-name="BANK_ORCRP_PAYF" rel-entity-name="Party">
+	    <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ORCRP_PAYT" rel-entity-name="Party">
+	    <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ORCRP_ROTEF" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
+      </relation>
+	  <relation type="one" fk-name="BANK_ORCRP_ROTET" rel-entity-name="RoleType">
+	    <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
+      </relation>
+    </entity>
+
+	<entity entity-name="OrganizationRegulation"
+            package-name="org.ofbiz.bank.organization"
+            title="Organization Regulation Entity">
+      <description>组织条例</description>
+	  <field name="financialRegulationId" type="id-ne"></field>
+	  <prim-key field="financialRegulationId" />
+      <relation type="one" fk-name="BANK_ORRN_FIRN"  rel-entity-name="FinancialRegulation">
+        <key-map field-name="financialRegulationId" />
+	  </relation>
+    </entity>
+
+
+
+
+
+
+
+
+	<entity entity-name="OtherAccountNotification"
+            package-name="org.ofbiz.bank.account"
+            title="Other Account Notification Entity">
+      <description>其他账户通知</description>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <field name="date" type="date-time"></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="date" />
+	  <relation type="one" fk-name="BANK_OTANN_ACT"  rel-entity-name="Account">
+        <key-map field-name="accountNumber" />
+	   </relation>
+    </entity>
+
+
+
+
+
+
+
+
+
+	<entity entity-name="Owners"
+            package-name="org.ofbiz.bank.party"
+            title="Owners Entity">
+      <description>户主</description>
+	  <field name="ownerPartyId" type="id-ne"></field>
+	  <field name="accountOwnerName" type="name"></field>
+	  <field name="partyType" type="short-varchar"></field>
+	  <prim-key field="ownerPartyId" />
+    </entity>
+
+	<entity entity-name="Parameter"
+            package-name="org.ofbiz.bank.account"
+            title="Parameter Entity">
+      <description>参数类型</description>
+	  <field name="parameterTypeId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="parameterTypeId" />
+    </entity>
+
+
+
+	<entity entity-name="Worker" 
+			package-name="org.ofbiz.bank.work" 
+			title="工作者">
+        <field name="partyId" type="id-ne"><description>当事人标识</description></field>
+        <field name="roleTypeId" type="id-ne"><description>角色类型标识</description></field>
+		<prim-key field="partyId"/>
+		<prim-key field="roleTypeId"/>
+		 <relation type="one" fk-name="BANK_WOR_PAY"  rel-entity-name="Party">
+	        <key-map field-name="partyId" />
+		 </relation>
+		<relation type="one" fk-name="BANK_WOR_ROTE"  rel-entity-name="RoleType">
+	        <key-map field-name="roleTypeId" />
+		 </relation>
+ 	</entity>
+
+  	<entity entity-name="WorkEffortStatusType" 
+  		  package-name="org.ofbiz.bank.work" 
+  		  title="工作计划状态类型">
+        <field name="statusTypeId" type="id-ne"><description>状态类型标识</description></field>
+		<prim-key field="statusTypeId"/>
+		<relation type="one" fk-name="BANK_WOESTE_STTE"  rel-entity-name="StatusType">
+	        <key-map field-name="statusTypeId" />
+		</relation>
+  	</entity>
+
+   <entity entity-name="WorkEffortStatus" 
+   		   package-name="org.ofbiz.bank.work" 
+   		   title="工作计划状态">
+        <field name="statusTypeId" type="id-ne"><description>状态类型标识</description></field>
+        <field name="workEffortId" type="id-ne"><description>工作计划标识</description></field>
+        <field name="dateTime" type="date-time"><description>时间</description></field>
+		<prim-key field="statusTypeId"/>
+		<prim-key field="workEffortId"/>
+		<relation type="one" fk-name="BANK_WOESS_WOESTE"  rel-entity-name="WorkEffortStatusType">
+        	<key-map field-name="statusTypeId" />
+    	</relation>
+		<relation type="one" fk-name="BANK_WOESS_WOET"  rel-entity-name="WorkEffort">
+        	<key-map field-name="workEffortId" />
+	   </relation>
+    </entity>
+
+	<entity entity-name="Withdrawal" 
+	        package-name="org.ofbiz.bank.work" 
+	        title="提款">
+        <field name="accountNumber" type="id-ne"><description>账号</description></field>
+        <field name="accountTransactionId" type="id-ne"><description>账户事务标识</description></field>
+        <field name="financialAccountTransId" type="id-ne"><description>金融账户事务标识</description></field>
+		<field name="paymentId" type="id"><description>支付标识</description></field>
+		<prim-key field="accountNumber"/>
+		<prim-key field="accountTransactionId"/>
+		<prim-key field="financialAccountTransId"/>
+	  	<relation type="one" fk-name="BANK_WIL_ACTN" rel-entity-name="AccountTransaction">
+	    	<key-map field-name="accountNumber"/>
+			<key-map field-name="accountTransactionId"/>
+      	</relation>
+
+    </entity>
+
+	<entity entity-name="VehicleLoanAccount"
+            package-name="org.ofbiz.bank.account"
+            title="车辆贷款账户">
+      <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_VELAT_ACT"  rel-entity-name="Account">
+        <key-map field-name="accountNumber" />
+	</relation>
+    </entity>
+
+	 <entity entity-name="Vehicle"
+            package-name="org.ofbiz.bank.account"
+            title="车辆">
+      <field name="assetId" type="id-ne"></field>
+      <field name="fixedAssetId" type="id-ne"></field>
+	  <prim-key field="assetId" />
+	  <prim-key field="fixedAssetId" />
+
+	  <relation type="one" fk-name="BANK_VEE_FIAT" rel-entity-name="FixedAsset">
+		<key-map field-name="assetId"/>
+        <key-map field-name="fixedAssetId"/>
+      </relation>
+    </entity>
+
+
+
+	<entity entity-name="TransactionStatusType"
+            package-name="org.ofbiz.bank.account"
+            title="事务状态类型">
+      <field name="statusTypeId" type="id-ne"></field>
+	  <prim-key field="statusTypeId" />
+    </entity>
+
+	 <entity entity-name="TimeFrequency"
+            package-name="org.ofbiz.bank.account"
+            title="时间频率">
+      <field name="uomId" type="id-ne"></field>
+	  <prim-key field="uomId" />
+    </entity>
+
+
+	 <entity entity-name="TimeByWeek"
+            package-name="org.ofbiz.bank.account"
+            title="周时间">
+      <field name="weekId" type="id-ne"></field>
+      <field name="month" type="very-short"></field>
+	  <field name="quarter" type="very-short"></field>
+	  <field name="week" type="very-short"></field>
+	  <field name="year" type="very-short"></field>
+	  <prim-key field="weekId" />
+    </entity>
+
+	<entity entity-name="TimeByDay"
+            package-name="org.ofbiz.bank.account"
+            title="日时间">
+      <field name="dayId" type="id-ne"></field>
+      <field name="day" type="very-short"></field>
+	  <field name="month" type="very-short"></field>
+	  <field name="quarter" type="very-short"></field>
+	  <field name="week" type="very-short"></field>
+	  <field name="year" type="very-short"></field>
+	  <prim-key field="dayId" />
+    </entity>
+
+
+
+
+
+
+
+
+
+
+
+	<entity entity-name="Statement"
+            package-name="org.ofbiz.bank.account"
+            title="对账单">
+      <field name="accountNumber" type="id-ne"></field>
+	  <field name="date" type="date-time"></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="date" />
+	  <relation type="one" fk-name="BANK_STT_ACT"  rel-entity-name="Account">
+        <key-map field-name="accountNumber" />
+		 </relation>
+    </entity>
+
+
+
+
+
+
+
+	<entity entity-name="Security"
+            package-name="org.ofbiz.bank.account"
+            title="证券">
+      <field name="assetId" type="id-ne"></field>
+	  <field name="productCategoryId" type="id-ne"></field>
+	  <prim-key field="productCategoryId" />
+	  <prim-key field="assetId" />
+	   <relation type="one" fk-name="BANK_SEY_PRCY"  rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId" />
+		</relation>
+		 <relation type="one" fk-name="BANK_SEY_AST"  rel-entity-name="Asset">
+        <key-map field-name="assetId" />
+		</relation>
+    </entity>
+
+
+
+	<entity entity-name="SavingsAccount"
+            package-name="org.ofbiz.bank.account"
+            title="储蓄存款账户">
+      <field name="accountNumber" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <relation type="one" fk-name="BANK_SAAT_ACT"  rel-entity-name="Account">
+        <key-map field-name="accountNumber" />
+	</relation>
+    </entity>
+
+
+
+
+
+
+	<entity entity-name="RegulationRequirement"
+            package-name="org.ofbiz.bank.account"
+            title="条例需求">
+      <field name="regulationRequirementId" type="id-ne"></field>
+	  <field name="agreementId" type="id"></field>
+	  <field name="financialRegulationId" type="id"></field>
+	  <field name="Description" type="description"></field>
+	  <prim-key field="regulationRequirementId" />
+	  <relation type="one" fk-name="BANK_RERT_FIRN"  rel-entity-name="FinancialRegulation">
+        <key-map field-name="financialRegulationId" />
+	</relation>
+		<relation type="one" fk-name="BANK_RERT_AGT" rel-entity-name="Agreement">
+        <key-map field-name="agreementId"/>
+      </relation>
+    </entity>
+
+
+
+
+
+
+
+
+
+	<entity entity-name="ProductFeatureApplicability"
+            package-name="org.ofbiz.bank.account"
+            title="产品类型适用性">
+      <field name="productFeatureId" type="id-ne"></field>
+	  <field name="productId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <field name="value" type="numeric"></field>
+	  <prim-key field="productFeatureId" />
+	  <prim-key field="productId" />
+	  <relation type="one" fk-name="BANK_PRCFFAY_PRFE" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+		</relation>
+		<relation type="one" fk-name="BANK_PRCFAY_FIPT"  rel-entity-name="FinancialProduct">
+        <key-map field-name="productId" rel-field-name="financialProductId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="ProductCategoryRollup"
+            package-name="org.ofbiz.bank.account"
+            title="产品类别隶属关系">
+      <field name="productTypeIdMadeUpOf" type="id-ne"><description>构成产品类别标识</description></field>
+	  <field name="productTypeIdPartOf" type="id-ne"><description>所属产品类别标识</description></field>
+	  <prim-key field="productTypeIdMadeUpOf" />
+	  <prim-key field="productTypeIdPartOf" />
+    </entity>
+
+	<entity entity-name="ProductCategoryFeatureApplicability"
+            package-name="org.ofbiz.bank.account"
+            title="产品类型特征适用性">
+      <field name="productFeatureId" type="id-ne"></field>
+	  <field name="productCategoryId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="productFeatureId" />
+	  <prim-key field="productCategoryId" />
+	  <relation type="one" fk-name="BANK_PRCFAY_PRCY"  rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PRCFAY_PRFE" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+		</relation>
+    </entity>
+
+	<entity entity-name="ProductCategoryFeatFuncApplicability"
+            package-name="org.ofbiz.bank.account"
+            title="产品类别特征功能适用性">
+      <field name="functionalSettingId" type="id-ne"></field>
+	  <field name="productCategoryId" type="id-ne"></field>
+	  <field name="productFeatureId" type="id"></field>
+	  <prim-key field="functionalSettingId" />
+	  <prim-key field="productCategoryId" />
+	  <relation type="one" fk-name="BANK_PRCFFAY_PRCY"  rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PRCFFAY_PRFE" rel-entity-name="ProductFeature">
+        <key-map field-name="productFeatureId"/>
+		</relation>
+		<relation type="one" fk-name="BANK_PRCFFAY_FUSG" rel-entity-name="FunctionalSetting">
+        <key-map field-name="functionalSettingId"/>
+		</relation>
+    </entity>
+
+	<entity entity-name="ProductCategoryClassification"
+            package-name="org.ofbiz.bank.account"
+            title="产品类别分类">
+      <field name="productCategoryId" type="id-ne"></field>
+	  <field name="productId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="comments" type="comment"></field>
+	  <field name="primaryFlag" type="indicator"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="productCategoryId" />
+	  <prim-key field="productId" />
+	  <prim-key field="fromDate" />
+	  <relation type="one" fk-name="BANK_PRCCN_FIRN"  rel-entity-name="FinancialProducts">
+        <key-map field-name="productId" rel-field-name="financialProductId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PRCCN_PRCY"  rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="ProductCategory"
+            package-name="org.ofbiz.bank.account"
+            title="产品类别">
+      <field name="productCategoryId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="productCategoryId" />
+    </entity>
+
+	<entity entity-name="PredeterminedTransactionTask"
+            package-name="org.ofbiz.bank.account"
+            title="预定事务任务">
+      <field name="transactionTaskId" type="id-ne"></field>
+	  <prim-key field="transactionTaskId" />
+    </entity>
+
+	<entity entity-name="PowerOfAttorney"
+            package-name="org.ofbiz.bank.account"
+            title="授权书">
+      <field name="roleTypeId" type="id-ne"></field>
+	  <prim-key field="roleTypeId" />
+	<relation type="one" fk-name="BANK_POOAY_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PostTransactionTask"
+            package-name="org.ofbiz.bank.account"
+            title="过账事务任务">
+      <field name="transactionTaskId" type="id-ne"></field>
+	  <prim-key field="transactionTaskId" />
+    </entity>
+
+	<entity entity-name="PlanType"
+            package-name="org.ofbiz.bank.account"
+            title="计划类型">
+      <field name="planTypeId" type="id-ne"></field>
+	  <field name="description" type="description"></field>
+	  <prim-key field="planTypeId" />
+    </entity>
+
+	<entity entity-name="PlanStatusType"
+            package-name="org.ofbiz.bank.account"
+            title="计划状态类型">
+      <field name="statusTypeId" type="id-ne"></field>
+	  <prim-key field="statusTypeId" />
+	<relation type="one" fk-name="BANK_PLSTE_STTE"  rel-entity-name="StatusType">
+        <key-map field-name="statusTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PlanStatus"
+            package-name="org.ofbiz.bank.account"
+            title="计划状态">
+      <field name="planId" type="id-ne"></field>
+	  <field name="statusTypeId" type="id-ne"></field>
+	  <field name="date" type="date-time"></field>
+	  <prim-key field="statusTypeId" />
+	 <relation type="one" fk-name="BANK_PLSS_PLAN"  rel-entity-name="Plan">
+        <key-map field-name="planId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLSS_STTE"  rel-entity-name="StatusType">
+        <key-map field-name="statusTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PlanRoleType"
+            package-name="org.ofbiz.bank.account"
+            title="计划角色类型">
+      <field name="roleTypeId" type="id-ne"></field>
+	  <prim-key field="roleTypeId" />
+	<relation type="one" fk-name="BANK_PLRTE_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PlanRole"
+            package-name="org.ofbiz.bank.account"
+            title="计划角色">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="planId" type="id-ne"></field>
+	  <field name="roleTypeId" type="id-ne"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="planId" />
+	  <prim-key field="roleTypeId" />
+	  <relation type="one" fk-name="BANK_PLRE_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLRE_PLAN"  rel-entity-name="Plan">
+        <key-map field-name="planId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLRE_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PlanProduct"
+            package-name="org.ofbiz.bank.account"
+            title="计划产品">
+      <field name="planId" type="id-ne"></field>
+	  <field name="productCategoryId" type="id"></field>
+	  <field name="productId" type="id"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="planId" />
+	  <relation type="one" fk-name="BANK_PLPT_PLAN"  rel-entity-name="Plan">
+        <key-map field-name="planId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLPT_FIRN"  rel-entity-name="FinancialProducts">
+        <key-map field-name="productId" rel-field-name="financialProductId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLPT_PRCY"  rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PlanObjective"
+            package-name="org.ofbiz.bank.account"
+            title="计划目标">
+      <field name="fromDate" type="date-time"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <field name="planId" type="id-ne"></field>
+	  <field name="score" type="numeric"></field>
+	  <prim-key field="fromDate" />
+	  <prim-key field="partyId" />
+	  <prim-key field="planId" />
+		<relation type="one" fk-name="BANK_PLOE_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLOE_PLAN"  rel-entity-name="Plan">
+        <key-map field-name="planId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PlanNeed"
+            package-name="org.ofbiz.bank.account"
+            title="计划需要">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="partyNeedId" type="id-ne"></field>
+	  <field name="planId" type="id-ne"></field>
+	  <field name="score" type="numeric"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="partyNeedId" />
+	  <prim-key field="planId" />
+	  <relation type="one" fk-name="BANK_PLND_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLND_PAND"  rel-entity-name="PartyNeed">
+        <key-map field-name="partyNeedId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PLND_PLAN"  rel-entity-name="Plan">
+        <key-map field-name="planId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="Plan"
+            package-name="org.ofbiz.bank.account"
+            title="计划">
+      <field name="planId" type="id-ne"></field>
+	  <field name="planTypeId" type="id"></field>
+	  <field name="description" type="description"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="planId" />
+	  <relation type="one" fk-name="BANK_PLN_PLTE"  rel-entity-name="PlanType">
+        <key-map field-name="planTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PersonRole"
+            package-name="org.ofbiz.bank.account"
+            title="人员角色">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="roleTypeId" type="id-ne"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="roleTypeId" />
+	  <relation type="one" fk-name="BANK_PEEPAY_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PEEPAY_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyTarget"
+            package-name="org.ofbiz.bank.account"
+            title="当事人目标">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="behaviorScore" type="numeric"></field>
+	  <prim-key field="partyId" />
+	  <relation type="one" fk-name="BANK_PATT_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyRoleType"
+            package-name="org.ofbiz.bank.account"
+            title="当事人角色类型">
+      <field name="roleTypeId" type="id-ne"></field>
+	  <prim-key field="roleTypeId" />
+	  <relation type="one" fk-name="BANK_PARTE_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyRelationshipStatusType"
+            package-name="org.ofbiz.bank.account"
+            title="当事人关系状态类型">
+      <field name="statusTypeId" type="id-ne"></field>
+	  <prim-key field="statusTypeId" />
+	 <relation type="one" fk-name="BANK_PARSTE_STTE"  rel-entity-name="StatusType">
+        <key-map field-name="statusTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyObjective"
+            package-name="org.ofbiz.bank.account"
+            title="当事人目标">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="objectiveTypeId" type="id"></field>
+	  <field name="amount" type="numeric"></field>
+	  <field name="description" type="description"></field>
+	  <field name="goalDate" type="date-time"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="fromDate" />
+	  <relation type="one" fk-name="BANK_PAOE_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAOE_OBTE"  rel-entity-name="ObjectiveType">
+        <key-map field-name="objectiveTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyNeed"
+            package-name="org.ofbiz.bank.account"
+            title="当事人需要">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="partyNeedId" type="id-ne"></field>
+	  <field name="needTypeId" type="id"></field>
+	  <field name="partyTypeId" type="id"></field>
+	  <field name="planId" type="id"></field>
+	  <field name="productCategoryId" type="id"></field>
+	  <field name="productId" type="id"></field>
+	  <field name="communicationEventId" type="id"></field>
+	  <field name="dateTime" type="date-time"></field>
+	  <field name="description" type="description"></field>
+	  <field name="visitId" type="id"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="partyNeedId" />
+		<relation type="one" fk-name="BANK_PAND_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAND_NETE"  rel-entity-name="NeedType">
+        <key-map field-name="needTypeId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAND_PATE"  rel-entity-name="PartyType">
+        <key-map field-name="partyTypeId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAND_PLAN"  rel-entity-name="Plan">
+        <key-map field-name="planId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAND_PRCY"  rel-entity-name="ProductCategory">
+        <key-map field-name="productCategoryId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAND_FIRN"  rel-entity-name="FinancialProducts">
+        <key-map field-name="productId" rel-field-name="financialProductId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyAccountMediaStatus"
+            package-name="org.ofbiz.bank.account"
+            title="当事人媒介状态">
+      <field name="accountNumber" type="id-ne"></field>
+	  <field name="dateTime" type="date-time"></field>
+	  <field name="partyId" type="id-ne"></field>
+	  <field name="roleTypeId" type="id-ne"></field>
+	  <field name="statusTypeId" type="id-ne"></field>
+	  <prim-key field="accountNumber" />
+	  <prim-key field="dateTime" />
+	  <prim-key field="partyId" />
+	  <prim-key field="roleTypeId" />
+	  <prim-key field="statusTypeId" />
+	   <relation type="one" fk-name="BANK_PAAMSS_ACT"  rel-entity-name="Account">
+        <key-map field-name="accountNumber" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAAMSS_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAAMSS_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAAMSS_STTE"  rel-entity-name="StatusType">
+        <key-map field-name="statusTypeId" />
+		</relation>
+    </entity>
+
+	<entity entity-name="PartyAccountMedia"
+            package-name="org.ofbiz.bank.account"
+            title="当事人账户媒介">
+      <field name="partyId" type="id-ne"></field>
+	  <field name="accountNumber" type="id-ne"></field>
+	  <field name="roleTypeId" type="id-ne"></field>
+	  <field name="fromDate" type="date-time"></field>
+	  <field name="mediaTypeId" type="id"></field>
+	  <field name="imprintedName" type="name"></field>
+	  <field name="thruDate" type="date-time"></field>
+	  <prim-key field="partyId" />
+	  <prim-key field="accountNumber" />
+	  <prim-key field="roleTypeId" />
+	  <prim-key field="fromDate" />
+	  <relation type="one" fk-name="BANK_PAAMA_PAY"  rel-entity-name="Party">
+        <key-map field-name="partyId" />
+		</relation>
+		 <relation type="one" fk-name="BANK_PAAMA_ACT"  rel-entity-name="Account">
+        <key-map field-name="accountNumber" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAAMA_ROTE"  rel-entity-name="RoleType">
+        <key-map field-name="roleTypeId" />
+		</relation>
+		<relation type="one" fk-name="BANK_PAAMA_METE"  rel-entity-name="MediaType">
+        <key-map field-name="mediaTypeId" />
+		</relation>
+    </entity>
+
+
+
+
+
+
+  </entitymodel>
+
+
+
+
+
