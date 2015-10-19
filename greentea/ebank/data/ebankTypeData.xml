@@ -11,6 +11,27 @@
 	<AccountType description="Debit Card Account" accountTypeId="DEDIT_CARD"/>
 	<!-- 存款账户 -->
 	<AccountType description="Deposit Account" accountTypeId="DEPOSIT"/>
+	<!-- 限额股权账户 -->
+	<AccountType description="Equity Line Account" accountTypeId="EQUITY_LINE"/>
+	<!-- 金融卡账户 -->
+	<AccountType description="Financial Card Account" accountTypeId="FINANCIAL_CARD"/>
+	<!-- 分期付款贷款账户 -->
+	<AccountType description="Installment Loan Account" accountTypeId="INSTALLMENT_LOAN"/>
+	<!-- 投资载体账户 -->
+	<AccountType description="Investment Vehicle Account" accountTypeId="INVESTMENT_VEHICLE"/>
+	<!-- 信用限额账户 -->
+	<AccountType description="Line Of Credit Account" accountTypeId="LINE_OF_CREDIT"/>
+	<!-- 贷款账户 -->
+	<AccountType description="Loan Account" accountTypeId="LOAN"/>
+	<!-- 市场基金账户 -->
+	<AccountType description="Money Market Account" accountTypeId="MONEY_MARKET"/>
+	<!-- 抵押贷款账户 -->
+	<AccountType description="Mortgage Account" accountTypeId="MORTGAGE"/>
+	<!-- 车辆贷款账户 -->
+	<AccountType description="Vehicle Loan Account" accountTypeId="VEHICLE_LOAN"/>
+	<!-- 储蓄存款账户 -->
+	<AccountType description="Savings Account" accountTypeId="SAVINGS"/>
+	
 	
 	<!-- 存取特征 -->
 	<ProductFeatureType description="Access Feature" hasTable="N" parentTypeId="" productFeatureTypeId="ACCESS"/>
@@ -112,6 +133,8 @@
 	<RoleType description="Regulatory Agency" hasTable="N" parentTypeId="ORGANIZATION_ROLE" roleTypeId="REGULATORY_AGENCY"/>
 	<!-- 潜在客户 -->
 	<RoleType description="Prospect" hasTable="N" parentTypeId="" roleTypeId="PROSPECT"/>
+	<!-- 金融机构 -->
+	<RoleType description="Financial Institution" hasTable="N" parentTypeId="" roleTypeId="FinancialInstitution"/>
 	
 	<!-- 财团参加者关系 -->
 	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Syndicator Relationship" partyRelationshipTypeId="SYNDICATOR_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
@@ -121,6 +144,8 @@
 	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Shareholder Relationship" partyRelationshipTypeId="SHAREHOLDER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
 	<!-- 潜在客户关系 -->
 	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Prospect Relationship" partyRelationshipTypeId="PROSPECT_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+	<!-- 非正式关系 -->
+	<PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Informal Relationship" partyRelationshipTypeId="INFORMAL_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
 	
 	<!-- 账户费用 -->
 	<AccountTransactionType description="Account Fee" accountTransactionTypeId="ACCOUNT_FEE"/>
@@ -155,6 +180,10 @@
 	
  	<!-- 授权事务任务 -->
  	<AccountTransactionTaskType description="Authorize Transaction Task" transactionTaskTypeId="AUTHORIZE_TRANS_TASK"/>
+ 	<!-- 预定事务任务 -->
+ 	<AccountTransactionTaskType description="Predetermined Transaction Task" transactionTaskTypeId="PREDETERMINED_TRANS_TASK"/>
+ 	<!-- 过账事务任务 -->
+ 	<AccountTransactionTaskType description="Post Transaction Task" transactionTaskTypeId="POST_TRANS_TASK"/>
 	
 	<!-- 金融协议 -->
 	<AgreementType agreementTypeId="FINANCIAL_AGREEMENT" description="Financial Agreement" hasTable="N" parentTypeId=""/>

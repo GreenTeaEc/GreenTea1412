@@ -677,16 +677,7 @@ under the License.
       </relation>
     </entity>
 
-	<entity entity-name="EquityLineAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Equity Line Account Entity">
-      <description>限额股权账户</description>
-      <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_EQLAT_ACT" rel-entity-name="Account">
-	        <key-map field-name="accountNumber"/>
-	  </relation>
-    </entity>
+
 
 	<entity entity-name="EstimatedIncome"
             package-name="org.ofbiz.bank.account"
@@ -701,48 +692,8 @@ under the License.
 
 
 
-	<entity entity-name="Facilitys"
-            package-name="org.ofbiz.bank.account"
-            title="Facilitys Entity">
-      <description>设施</description>
-      <field name="facilityId" type="id-ne"><description>设施标识</description></field>
-	  <field name="facilityName" type="name"><description>设施名称</description></field>
-	  <field name="GeoLevel1" type="description"><description>地理范围层次1</description></field>
-	  <field name="GeoLevel2" type="description"><description>地理范围层次2</description></field>
-	  <field name="GeoLevel3" type="description"><description>地理范围层次3</description></field>
-	  <prim-key field="facilityId" />
-    </entity>
 
 
-
-
-	<entity entity-name="FinancialCardAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Financial Card Account Entity">
-      <description>金额卡账户</description>
-      <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_FICAT_ACT" rel-entity-name="Account">
-	        <key-map field-name="accountNumber"/>
-	  </relation>
-    </entity>
-
-
-	<entity entity-name="FinancialInstitution"
-            package-name="org.ofbiz.bank.party"
-            title="Financial Institution Entity">
-      <description>金融机构</description>
-      <field name="partyId" type="id-ne"></field>
-	  <field name="roleTypeId" type="id-ne"></field>
-	  <prim-key field="partyId" />
-	  <prim-key field="roleTypeId" />
-	  <relation type="one" fk-name="BANK_FIIN_PAY" rel-entity-name="Party">
-	    <key-map field-name="partyId"/>
-      </relation>
-	  <relation type="one" fk-name="BANK_FIIN_ROTE" rel-entity-name="RoleType">
-	    <key-map field-name="roleTypeId"/>
-      </relation>
-    </entity>
 
 
 	<entity entity-name="FinancialProduct"
@@ -936,47 +887,9 @@ under the License.
 
 
 
-	<entity entity-name="InformalRelationship"
-            package-name="org.ofbiz.bank.party"
-            title="Informal Relationship Entity">
-      <description>非正式关系</description>
-      <field name="fromDate" type="date-time"></field>
-      <field name="partyIdFrom" type="id-ne"></field>
-	  <field name="partyIdTo" type="id-ne"></field>
-	  <field name="roleTypeIdFrom" type="id-ne"></field>
-	  <field name="roleTypeIdTo" type="id-ne"></field>
-	  <prim-key field="fromDate" />	 
-	  <prim-key field="partyIdFrom" />	
-	  <prim-key field="partyIdTo" />	 
-	  <prim-key field="roleTypeIdFrom" />	
-	  <prim-key field="roleTypeIdTo" />	 
-	  <relation type="one" fk-name="BANK_INRP_PAYF" rel-entity-name="Party">
-	    <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-      </relation>
-	  <relation type="one" fk-name="BANK_INRP_PAYT" rel-entity-name="Party">
-	    <key-map field-name="partyIdTo" rel-field-name="partyId"/>
-      </relation>
-	  <relation type="one" fk-name="BANK_INRP_ROTEF" rel-entity-name="RoleType">
-	    <key-map field-name="roleTypeIdFrom" rel-field-name="roleTypeId"/>
-      </relation>
-	  <relation type="one" fk-name="BANK_INRP_ROTET" rel-entity-name="RoleType">
-	    <key-map field-name="roleTypeIdTo" rel-field-name="roleTypeId"/>
-      </relation>
-    </entity>
 
 
 
-
-	<entity entity-name="InstallmentLoanAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Installment Loan Account Entity">
-      <description>分期付款贷款账户</description>
-      <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />	
-	  <relation type="one" fk-name="BANK_INLAT_ACT" rel-entity-name="Account">
-	    <key-map field-name="accountNumber"/>
-      </relation>
-    </entity>
 
 
 	<entity entity-name="IntangibleAsset"
@@ -1032,16 +945,6 @@ under the License.
 
 
 
-	<entity entity-name="InvestmentVehicleAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Investment Vehicle Account Entity">
-      <description>投资载体账户</description>
-      <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_INVAT_ACT" rel-entity-name="Account">
-	    <key-map field-name="accountNumber"/>
-      </relation>
-    </entity>
 
 
 
@@ -1076,16 +979,7 @@ under the License.
       </relation>
     </entity>
 
-	<entity entity-name="LineOfCreditAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Line Of Credit Account Entity">
-      <description>信用限额账户</description>
-	  <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_LICAT_ACT" rel-entity-name="Account">
-	    <key-map field-name="accountNumber"/>
-      </relation>
-    </entity>
+
 
 	<entity entity-name="Livestock"
             package-name="org.ofbiz.bank.product"
@@ -1101,16 +995,6 @@ under the License.
       </relation>
     </entity>
 
-	<entity entity-name="LoanAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Loan Account Entity">
-      <description>贷款账户</description>
-	  <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_LOAT_ACT" rel-entity-name="Account">
-	    <key-map field-name="accountNumber"/>
-      </relation>
-    </entity>
 
 
 
@@ -1225,26 +1109,7 @@ under the License.
       </relation>
     </entity>
 
-	<entity entity-name="MoneyMarketAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Money Market Account Entity">
-      <description>市场基金账户</description>
-	  <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-    </entity>
 
-
-
-	<entity entity-name="MortgageAccount"
-            package-name="org.ofbiz.bank.account"
-            title="Mortgage Account Entity">
-      <description>抵押贷款账户</description>
-	  <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_MOAT_ACT" rel-entity-name="Account">
-	    <key-map field-name="accountNumber"/>
-      </relation>
-    </entity>
 
 
 
@@ -1429,15 +1294,7 @@ under the License.
 
     </entity>
 
-	<entity entity-name="VehicleLoanAccount"
-            package-name="org.ofbiz.bank.account"
-            title="车辆贷款账户">
-      <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_VELAT_ACT"  rel-entity-name="Account">
-        <key-map field-name="accountNumber" />
-	</relation>
-    </entity>
+
 
 	 <entity entity-name="Vehicle"
             package-name="org.ofbiz.bank.account"
@@ -1538,15 +1395,7 @@ under the License.
 
 
 
-	<entity entity-name="SavingsAccount"
-            package-name="org.ofbiz.bank.account"
-            title="储蓄存款账户">
-      <field name="accountNumber" type="id-ne"></field>
-	  <prim-key field="accountNumber" />
-	  <relation type="one" fk-name="BANK_SAAT_ACT"  rel-entity-name="Account">
-        <key-map field-name="accountNumber" />
-	</relation>
-    </entity>
+
 
 
 
@@ -1595,14 +1444,7 @@ under the License.
 		</relation>
     </entity>
 
-	<entity entity-name="ProductCategoryRollup"
-            package-name="org.ofbiz.bank.account"
-            title="产品类别隶属关系">
-      <field name="productTypeIdMadeUpOf" type="id-ne"><description>构成产品类别标识</description></field>
-	  <field name="productTypeIdPartOf" type="id-ne"><description>所属产品类别标识</description></field>
-	  <prim-key field="productTypeIdMadeUpOf" />
-	  <prim-key field="productTypeIdPartOf" />
-    </entity>
+
 
 	<entity entity-name="ProductCategoryFeatureApplicability"
             package-name="org.ofbiz.bank.account"
@@ -1660,20 +1502,9 @@ under the License.
 		</relation>
     </entity>
 
-	<entity entity-name="ProductCategory"
-            package-name="org.ofbiz.bank.account"
-            title="产品类别">
-      <field name="productCategoryId" type="id-ne"></field>
-	  <field name="description" type="description"></field>
-	  <prim-key field="productCategoryId" />
-    </entity>
 
-	<entity entity-name="PredeterminedTransactionTask"
-            package-name="org.ofbiz.bank.account"
-            title="预定事务任务">
-      <field name="transactionTaskId" type="id-ne"></field>
-	  <prim-key field="transactionTaskId" />
-    </entity>
+
+
 
 	<entity entity-name="PowerOfAttorney"
             package-name="org.ofbiz.bank.account"
@@ -1685,12 +1516,7 @@ under the License.
 		</relation>
     </entity>
 
-	<entity entity-name="PostTransactionTask"
-            package-name="org.ofbiz.bank.account"
-            title="过账事务任务">
-      <field name="transactionTaskId" type="id-ne"></field>
-	  <prim-key field="transactionTaskId" />
-    </entity>
+
 
 	<entity entity-name="PlanType"
             package-name="org.ofbiz.bank.account"
