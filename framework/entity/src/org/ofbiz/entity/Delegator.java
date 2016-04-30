@@ -1368,5 +1368,20 @@ public interface Delegator {
      * @return boolean true if this delegator uses a Distributed Cache Clear mechanism 
      */
     boolean useDistributedCacheClear();
+
+    public int storeAllBatch(List<GenericValue> toBeStored) throws GenericEntityException;
+
+	public int storeAllBatch(List<GenericValue> toBeStored,boolean doCacheClear) throws GenericEntityException;
+	
+	public int storeAllBatch(List<GenericValue> toBeStored,boolean doCacheClear ,boolean createDummyFks) throws GenericEntityException;
+	
+	public int removeAllByPrimaryKeyBatch(List<GenericEntity> toBeRemoved) throws GenericEntityException;
+	
+	public int removeAllByAndBatch(ModelEntity modelEntity, List<EntityCondition> toBeRemovedCondition) throws GenericEntityException;
+	
+	public int removeAllByPrimaryKeyBatch(List<GenericEntity> toBeRemoved,boolean doCacheClear) throws GenericEntityException;
+	
+	public int removeAllByAndBatch(ModelEntity modelEntity,  List<EntityCondition> toBeRemovedCondition,boolean doCacheClear) throws GenericEntityException;
+
     
 }

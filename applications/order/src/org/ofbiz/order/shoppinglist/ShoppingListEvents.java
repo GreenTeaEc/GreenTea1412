@@ -20,6 +20,7 @@ package org.ofbiz.order.shoppinglist;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -43,6 +44,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
@@ -547,6 +550,27 @@ public class ShoppingListEvents {
         // next remove the items
         return delegator.removeByAnd("ShoppingListItem", UtilMisc.toMap("shoppingListId", shoppingListId));
     }
+    
+    /**
+     * Remove all items from the given list by batch.
+     */
+    public static int clearListInfoBatch(Delegator delegator, String shoppingListId) throws GenericEntityException {
+    	// remove the survey responses first
+    	ModelEntity shoppingListItemSurveyModelEntity  = delegator.getModelReader().getModelEntity("ShoppingListItemSurvey");
+    	List<EntityCondition> toBeRemovedCondition = new LinkedList<EntityCondition>();
+    	EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toMap("shoppingListId", shoppingListId));
+    	toBeRemovedCondition.add(condition);
+    	delegator.removeAllByAndBatch(shoppingListItemSurveyModelEntity, toBeRemovedCondition);
+
+        // next remove the items
+        delegator.removeByAnd("ShoppingListItem", UtilMisc.toMap("shoppingListId", shoppingListId));
+    	ModelEntity shoppingListItemModelEntity  = delegator.getModelReader().getModelEntity("ShoppingListItemSurvey");
+    	List<EntityCondition> toBeRemovedShoppingListItemCondition = new LinkedList<EntityCondition>();
+    	EntityCondition shoppingListItemCondition = EntityCondition.makeCondition(UtilMisc.toMap("shoppingListId", shoppingListId));
+    	toBeRemovedShoppingListItemCondition.add(shoppingListItemCondition);
+    	return delegator.removeAllByAndBatch(shoppingListItemModelEntity, toBeRemovedShoppingListItemCondition);
+    }
+    
 
     /**
      * Creates records for survey responses on survey items

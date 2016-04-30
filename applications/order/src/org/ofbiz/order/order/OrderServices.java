@@ -1067,7 +1067,7 @@ public class OrderServices {
 
         try {
             // store line items, etc so that they will be there for the foreign key checks
-            delegator.storeAll(toBeStored);
+            delegator.storeAllBatch(toBeStored);
 
             List<String> resErrorMessages = new LinkedList<String>();
 
